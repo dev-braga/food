@@ -1,0 +1,92 @@
+
+body{
+    font-family: "DM Sans", sans-serif;
+    padding: 0;
+    margin: 0;
+}
+.navbar{
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    background-color: #fefefe;
+}
+.navbar .nav-link{
+    margin: 0;
+   font-size: 18px;
+   font-weight: 500;
+}
+.navbar-nav{
+    width: 100%;
+    justify-content: center;
+    padding: 20px 2rem;
+}
+.cart{
+    align-items: center;
+    padding: 0;
+}
+.counter-cart{
+    position: relative;
+    width: 15px;
+    height: 15px;
+    top: -5px;
+    left: 13px;
+    background-color: rgb(209, 31, 31);
+    color: #fff;
+    font-size: 10px;
+    border-radius: 50%;
+    text-align: center;
+    padding: 0;
+}
+.cart img{
+    position: relative;
+    top: 7px;
+}
+
+/* SLIDER --- */
+#init-slide{
+    margin-top: 40px;
+}
+.slider-buttons{
+    position: absolute;
+    right: 15%;
+    bottom: 1.25rem;
+    left: 15%;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    color: #fff;
+    text-align: center;
+}
+
+/*
+    SESSAO  CARDAPIO =========================
+*/
+.card{
+    border: none;
+    background-color: #f7f7f7;
+    border-radius: 20px;
+    padding: 15px;
+}
+.card:hover{
+    cursor: pointer;
+}
+#section-cardapio{
+    text-align: center;
+}
+.cardapio-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.cardapio-cards{
+    padding: 1rem;
+}
+.text-preco{
+    font-weight: 700;
+}

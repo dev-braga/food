@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Parmegiana Gostoso</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Importacoes CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.css" integrity="sha512-pmAAV1X4Nh5jA9m+jcvwJXFQvCBi3T17aZ1KWkqXr7g/O2YMvO8rfaa5ETWDuBvRq6fbDjlw4jHL44jNTScaKg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+              <a class="nav-link" href="#section-cardapio">Cardápio</a>
+              <a class="nav-link" href="#">Contato</a>
+              <a class="nav-link cart" href="#">
+                <img src="./assets/shopping_cart.svg" alt="">
+                <div class="counter-cart">
+                    0
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+     
+      <!-- Sessao slide-->
+      <section id="init-slide" class="pb-5">
+
+        <div class="swiper">
+          <div class="swiper-wrapper ">
+            <!-- Slides -->
+            <div class="swiper-slide">
+              <img src="./assets/1.png" alt="" class="img-fluid">
+            </div>
+            <div class="swiper-slide" >
+              <img src="./assets/2.png" alt="" class="img-fluid">
+            </div>
+            <div class="swiper-slide" >
+              <img src="./assets/3.png" alt="" class="img-fluid">
+                <div class="slider-buttons">
+                    <a href="#" class="btn btn-warning btn-lg">Saber Mais</a>
+                </div>
+            </div>
+          </div>
+          
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+
+        </div>
+      </section>
+      
+      <section id="section-cardapio" class="pt-5 text-center">
+          
+        <h1 class="pt-5"> Nosso Cardápio</h1>
+        <div class="cardapio-container pt-5">
+            <!-- Estrogonofe de frango --- -->
+          <div class="cardapio-cards">
+            <div class="card" style="width: 18rem;">
+              <img src="./assets/estrogonofeFrango.png" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Estrogonofe de Frango</h5>
+                <p class="card-text">Experimente nosso estrogonofe de frango com os melhores ingredientes</p>
+                <h3 class="text-preco">R$ 14,99</h3>
+                <a href="#" class="btn btn-success">Pedir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Estrogonofe de Carne --- -->
+          <div class="cardapio-cards">
+            <div class="card" style="width: 18rem;">
+              <img src="./assets/4-Photoroom.png-Photoroom.png" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Estrogonofe de Carne</h5>
+                <p class="card-text">Experimente nosso estrogonofe de Carne com os melhores ingredientes</p>
+                <h3 class="text-preco">R$ 15,99</h3>
+                <a href="#" class="btn btn-success">Pedir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Estrogonofe de Carne --- -->
+          <div class="cardapio-cards">
+            <div class="card" style="width: 18rem;">
+              <img src="./assets/frangoparmegiana.png" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Parmegiana de Frango</h5>
+                <p class="card-text">Experimente nosso <b>Parmegiana de frango</b> com os melhores ingredientes</p>
+                <h3 class="text-preco">R$ 15,99</h3>
+                <a href="#" class="btn btn-success">Pedir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Estrogonofe de Carne --- -->
+          <div class="cardapio-cards">
+            <div class="card" style="width: 18rem;">
+              <img src="./assets/filemionaparmegiana.png" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Parmegiana de Filé Mignon</h5>
+                <p class="card-text">Experimente nosso <b>Parmegiana de Filé Mignon</b> com os melhores ingredientes</p>
+                <h3 class="text-preco">R$ 27,99</h3>
+                <a href="#" class="btn btn-success">Pedir</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Estrogonofe de Carne --- -->
+          <div class="cardapio-cards">
+            <div class="card" style="width: 18rem;">
+              <img src="./assets/lasanha.png" class="card-img-top" alt="..." >
+              <div class="card-body">
+                <h5 class="card-title">Lasanha Bolonhesa</h5>
+                <p class="card-text">Experimente nossa <b>Lasanha</b> com os melhores ingredientes</p>
+                <h3 class="text-preco">R$ 14,99</h3>
+                <a href="#" class="btn btn-success">Pedir</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="py-5 py-md-5 px-4 px-md-3 text-body-secondary">
+        <div class="row container-fluid">
+
+         <div class="col-lg-3 mb-3">
+           <a class="d-inline-flex align-items-center mb-2 text-body-emphasis text-decoration-none" href="/" aria-label="Bootstrap">
+             <img src="" alt="logo" width="180px">
+           </a>
+           <ul class="list-unstyled">
+             <li class="ps-4"><a href="https://github.com/dev-braga"> Dev Solutions </a></li>
+             <li class="ps-4"><b>Venha aproveitar o que tem de melhor!</b></li>
+             <li class="ps-4">CNPJ: 00.0000.00/0001-00</li>
+             <li class="ps-4">Atualmente v1.0</li>
+           </ul>
+         </div>
+
+         <div class="col-6 col-lg-2 offset-lg-1 mb-3">
+           <h5 class="mb-2">Links</h5><br>
+           <ul class="list-unstyled">
+             <li class="mb-2">
+               <a class="nav-link" aria-current="page" href="#">Início</a>
+             </li>
+             <li class="mb-2">
+               <a class="nav-link" href="#section-destinos">Cardápio</a>
+             </li>
+             <li class="mb-2">
+               <a class="nav-link" href="#section-servicos" >Contato</a>
+             </li>
+             <li class="mb-2">
+               <a class="nav-link" href="#section-quem-somos">Quem Somos</a>
+             </li>
+           </ul>
+         </div>
+         <div class="col-6 col-lg-2 mb-3">
+           <h5 class="mb-2"><b>Entre em contato:</b></h5><br>
+           <ul class="list-unstyled">
+             <li class="mb-2">
+               <p>Nossa equipe de suporte e vendas está disponível 24 horas por dia, 7 dias por semana para responder às suas dúvidas.</p>
+             </li>
+             <li class="mb-2">
+               <a class="btn btn-success btn-contato nowrap-btn" href="https://wa.me/5571982877132?text=Olá, gostaria de saber mais informações.">
+                 <div class="btn-contato-conteudo">
+                   <img src="./resource/point-tour/contato.svg" alt="">Contate-nos
+                 </div>
+               </a>
+             </li>
+           </ul>
+         </div>
+
+        </div>
+     </footer>
+
+    <!-- Importações ---- -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="./js/app.js"></script>
+  <script src="./js/routes.js"></script>
+  <script src="./js/swipper.js"></script>
+  </body>
+</html>
