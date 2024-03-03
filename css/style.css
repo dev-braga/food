@@ -17,13 +17,13 @@ body{
 }
 .navbar .nav-link{
     margin: 0;
-   font-size: 18px;
-   font-weight: 500;
+    font-size: 18px;
+    font-weight: 500;
 }
 .navbar-nav{
     width: 100%;
     justify-content: center;
-    padding: 20px 2rem;
+    padding: 10px 1rem;
 }
 .cart{
     align-items: center;
@@ -47,9 +47,139 @@ body{
     top: 7px;
 }
 
+/*
+    CARRINHO DE COMPRAS
+*/
+.carro-overlay{
+    position: fixed;
+    inset: 0;
+    background-color: rgb(0, 0, 0);
+    opacity: 0.5;
+    visibility: hidden;
+    transition: 0.5s ease-in-out;
+    z-index: 100;
+}
+.carro-overlay.show{
+    visibility: visible;
+}
+.carro.show{
+    transform: none;
+}
+.carro{
+    position: fixed;
+    inset-block:0;
+    right: 0;
+    width: 100%;
+    max-width: 420px;
+    max-height: 900px;
+    padding: 20px;
+    background-color: #fff;
+    transform: translateX(100%);
+    z-index: 100;
+    transition: 0.5s ease-in-out;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+.carro-header{
+    padding-block: 10px;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    text-align: center;
+}
+.carro-close{
+    position: absolute;
+    left: 0;
+    top: 22%;
+    font-size: 24px;
+    cursor: pointer;
+}
+.carro-body{
+    display: grid;
+    align-content: start;
+    gap: 20px;
+    padding-block: 20px;
+    overflow: auto;
+}
+
+.carro-vazio{
+    text-align: center;
+    padding-block: 20px;
+    font-size: 1.25rem;
+}
+.carro-footer{
+    border-top: 1px solid #ddd;
+    padding-block: 10px ;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.carro-footer div{
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.25rem;
+}
+.carro-footer strong{
+    font-weight: 500;
+}
+
+.carro-footer button{
+    padding-block: 10px;
+    text-transform: uppercase;
+}
+
+.carro-limpar{
+    background-color: chocolate;
+}
+
+.carro-item{
+    display: flex;
+    gap: 10px;
+}
+.carro-item img{
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.carro-item-detalhe{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.carro-item-detalhe h4{
+    font-size: 1rem;
+    color: #9c0b1e;
+}
+.carro-item-detalhe h5{
+    font-size: 1rem;
+}
+.carro-item-quantia{
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.carro-item-preco{
+    margin-left: auto;
+}
+.carro-item-quantia .bi{
+    opacity: 0.5;
+}
+.carro-item-quantia .bi:hover{
+    opacity: 1;
+    cursor: pointer;
+}
+.carro-item-quantia .qtd{
+    width: 2rem;
+    text-align: center;
+}
 /* SLIDER --- */
 #init-slide{
-    margin-top: 40px;
+    margin-top: 4rem;
 }
 .slider-buttons{
     position: absolute;
