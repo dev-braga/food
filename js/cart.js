@@ -41,27 +41,54 @@ const hideCarro = () => {
 }
 
 const renderizarContainer = () => {
-    const cardapio = document.querySelector('.cardapio-container')
+    const cardapio = document.querySelector('.cardapio-container');
+    
     fetch("js/cardapio.json")
-    .then( res => res.json())
+    .then(res => res.json())
     .then((dados) => {
-        dados.pratos.map((prato) => {
+        dados.pratos.forEach((prato, index) => {
             cardapio.innerHTML += `
             <div class="cardapio-cards">
-            <div class="card" style="width: 18rem;">
-            <img src="${prato.image}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">${prato.titulo}</h5>
-                <p class="card-text">${prato.texto}</p>
-                <h3 class="text-preco">${prato.preco}</h3>
-                <a class="btn btn-success btn-add-carrinho">Adicionar</a>
-            </div>
-            </div>
-        </div>  
-            ` 
-        })
-    })
+                <div class="card cardapio-card" style="width: 18rem;">
+                    <img src="${prato.image}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"> ${prato.titulo} </h5>
+                        <p class="card-text"> ${prato.texto} </p>
+                        <h3 class="text-preco"> ${prato.preco} </h3>
+                        <a class="btn btn-success btn-add-carrinho" data-index="${index}">Adicionar</a>
+                    </div>
+                </div>
+            </div>`;
+        });
+        
+        // Adicione um evento de clique a cada botão "Adicionar"
+        const btnAddCarrinho = document.querySelectorAll('.btn-add-carrinho');
+        btnAddCarrinho.forEach((btn, i) => {
+            btn.addEventListener('click', (event) => {
+                const index = event.target.getAttribute('data-index');
+                console.log(dados.pratos[i]);
+            });
+        });
+
+        // Adicione um evento de clique a cada cardapio-card
+        const cards = document.querySelectorAll('.cardapio-card');
+        cards.forEach((card, index) => {
+            card.addEventListener('click', () => {
+                const imagem = dados.pratos[index].image;
+                const descricao = dados.pratos[index].descricao;
+                
+                // Preencha o modal com os dados do card clicado
+                document.getElementById('modalImagem').src = imagem;
+                document.getElementById('modalDescricao').textContent = descricao;
+                
+                // Abra o modal usando JavaScript puro
+                const detalhesModal = new bootstrap.Modal(document.getElementById('detalhesModal'));
+                detalhesModal.show();
+            });
+        });
+    });
 }
+
 
 renderizarContainer()
 setupListeners()

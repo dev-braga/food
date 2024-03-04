@@ -131,9 +131,23 @@ body{
     text-transform: uppercase;
 }
 
-.carro-limpar{
-    background-color: chocolate;
+/* --- Botões do carrinho --- */
+
+.carro-limpar{ /* Botão de limpar -- */ 
+    background-color: rgb(240, 240, 240);
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
 }
+.carro-pedir{
+    background-color: rgb(201, 125, 27);
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* --- --- --- --- */
 
 .carro-item{
     display: flex;
@@ -168,14 +182,22 @@ body{
 }
 .carro-item-quantia .bi{
     opacity: 0.5;
+    width: 27px;
+    padding: 0.1rem;
+    text-align: center;
+    border-radius: 50%;
 }
 .carro-item-quantia .bi:hover{
     opacity: 1;
     cursor: pointer;
+    background-color: #ddd;
 }
 .carro-item-quantia .qtd{
     width: 2rem;
     text-align: center;
+}
+.btn-add-carrinho{
+    z-index: 200;
 }
 /* SLIDER --- */
 #init-slide{

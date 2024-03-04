@@ -11,7 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.css" integrity="sha512-pmAAV1X4Nh5jA9m+jcvwJXFQvCBi3T17aZ1KWkqXr7g/O2YMvO8rfaa5ETWDuBvRq6fbDjlw4jHL44jNTScaKg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/swiper.css">
 </head>
 <body>
 
@@ -65,16 +66,19 @@
       </section>
      
       <!-- CARRINHO  -->
-      <div class="carro-overlay"></div>
+      <div class="carro-overlay"></div> <!-- Fundo negro -->
+
       <div class="carro">
         <div class="carro-header">
           <i class="bi bi-arrow-right carro-close"></i> 
-          <h2>Seu Carrinho</h2>
+          <h2>Seu carrinho</h2>
         </div>
+        
         <div class="carro-body">
           <!-- <div class="carro-vazio">Seu carro está vazio.</div> -->
           <div class="carro-item">
             <img src="https://placehold.co/300" alt="">
+            
             <div class="carro-item-detalhe">
               <h4>Nome do Produto</h4>
               <h5>R$ 19,90</h5>
@@ -83,22 +87,22 @@
                 <i class="bi bi-dash-lg"></i>
                 <span class="qtd">0</span>
                 <i class="bi bi-plus-lg"></i>
-  
                 <span class="carro-item-preco">0</span>
               </div>
+
             </div>
           </div>
           
-      </div>
-        <div class="carro-footer">
-          <div>
-            <strong>Total</strong>
-            <span class="carro-total">0</span>
-          </div>
-          <button class="carro-limpar">Limpar Carro</button>
-          <button class="carro-pedir">Fazer Pedido</button>
         </div>
-      </div>
+          <div class="carro-footer">
+            <div>
+              <strong>Total</strong>
+              <span class="carro-total">0</span>
+            </div>
+            <button class="carro-limpar">Limpar Carro</button>
+            <button class="carro-pedir">Fazer Pedido</button>
+          </div>
+        </div>
 
       <section id="section-cardapio" class="pt-5 text-center">
           
@@ -107,6 +111,28 @@
             <!-- Estrogonofe de frango --- -->
             <!-- OS DADOS VEM DO JSON -->
         </div>
+
+       <!-- Modal -->
+        <div class="modal fade" id="detalhesModal" tabindex="-1" role="dialog" aria-labelledby="detalhesModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="detalhesModalLabel">Detalhes do Prato</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <img id="modalImagem" class="img-fluid" alt="Imagem do Prato">
+                <p id="modalDescricao"></p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </section>
 
       <footer class="py-5 py-md-5 px-4 px-md-3 text-body-secondary">
