@@ -1,94 +1,51 @@
 // SELETORES
-const selectors = {
-    carroBtn: document.querySelector('.cart'),
-    carroCounter: document.querySelector('.counter-cart'),
-    carroClose: document.querySelector('.carro-close'),
-    carro: document.querySelector('.carro'),
-    carroOverlay: document.querySelector('.carro-overlay'),
-    carroLimpar: document.querySelector('.carro-limpar'),
-    carroPedir: document.querySelector('.carro-pedir'),
-    carroBody: document.querySelector('.carro-body'),
-    btnAddCarrinho: document.querySelector('.btn-add-carrinho'),
+let carro = document.querySelector(".carro");
+let qtd = document.querySelector(".qtd")
 
-}
+const carroBtn = document.querySelector('.cart')
+const carroCounter = document.querySelector('.counter-cart')
+const carroClose = document.querySelector('.carro-close')
+const carroOverlay = document.querySelector('.carro-overlay')
+const carroLimpar = document.querySelector('.carro-limpar')
+const carroPedir = document.querySelector('.carro-pedir')
+const carroBody = document.querySelector('.carro-body')
+const btnAddCarrinho = document.querySelector('.btn-add-carrinho')
+
+const cardapio = document.querySelector('.cardapio-container')
+let listaDePratos = []
 
 // Event Listeners 
 
 const setupListeners = () => {
-    document.addEventListener('DOMContentLoaded', initStore)
 
-    // Evento dos produtos
-    
-    
     // Evento do carrinho
-    selectors.carroBtn.addEventListener('click', showCarro);
-    selectors.carroOverlay.addEventListener('click', showCarro)
-    selectors.carroClose.addEventListener('click', hideCarro)
-
+    carroBtn.addEventListener('click', showCarro);
+    carroOverlay.addEventListener('click', showCarro)
+    carroClose.addEventListener('click', hideCarro)
     
 }
-const initStore = () => {
 
+const adicionarAoHTML = () => {
+    
+}
+
+const initApp = () => {
+    fetch('js/cardapio.json')
+    .then( res => res.json())
+    .then( data => {
+        listaDePratos = data;
+        adicionarAoHTML()
+    })
 }
 
 const showCarro = () => {
-    selectors.carro.classList.add('show')
-    selectors.carroOverlay.classList.add('show')
+    carro.classList.add('show')
+    carroOverlay.classList.add('show')
 }
 const hideCarro = () => {
-    selectors.carro.classList.remove('show')
-    selectors.carroOverlay.classList.remove('show')
+    carro.classList.remove('show')
+    carroOverlay.classList.remove('show')
 }
 
-const renderizarContainer = () => {
-    const cardapio = document.querySelector('.cardapio-container');
-    
-    fetch("js/cardapio.json")
-    .then(res => res.json())
-    .then((dados) => {
-        dados.pratos.forEach((prato, index) => {
-            cardapio.innerHTML += `
-            <div class="cardapio-cards">
-                <div class="card cardapio-card" style="width: 18rem;">
-                    <img src="${prato.image}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title"> ${prato.titulo} </h5>
-                        <p class="card-text"> ${prato.texto} </p>
-                        <h3 class="text-preco"> ${prato.preco} </h3>
-                        <a class="btn btn-success btn-add-carrinho" data-index="${index}">Adicionar</a>
-                    </div>
-                </div>
-            </div>`;
-        });
-        
-        // Adicione um evento de clique a cada botão "Adicionar"
-        const btnAddCarrinho = document.querySelectorAll('.btn-add-carrinho');
-        btnAddCarrinho.forEach((btn, i) => {
-            btn.addEventListener('click', (event) => {
-                const index = event.target.getAttribute('data-index');
-                console.log(dados.pratos[i]);
-            });
-        });
-
-        // Adicione um evento de clique a cada cardapio-card
-        const cards = document.querySelectorAll('.cardapio-card');
-        cards.forEach((card, index) => {
-            card.addEventListener('click', () => {
-                const imagem = dados.pratos[index].image;
-                const descricao = dados.pratos[index].descricao;
-                
-                // Preencha o modal com os dados do card clicado
-                document.getElementById('modalImagem').src = imagem;
-                document.getElementById('modalDescricao').textContent = descricao;
-                
-                // Abra o modal usando JavaScript puro
-                const detalhesModal = new bootstrap.Modal(document.getElementById('detalhesModal'));
-                detalhesModal.show();
-            });
-        });
-    });
-}
-
-
-renderizarContainer()
+initApp()
 setupListeners()
