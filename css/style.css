@@ -168,9 +168,6 @@ body{
     font-size: 1rem;
     color: #9c0b1e;
 }
-.carro-item-detalhe h5{
-    font-size: 1rem;
-}
 .carro-item-quantia{
     margin-top: auto;
     display: flex;
@@ -199,6 +196,46 @@ body{
 .btn-add-carrinho{
     z-index: 200;
 }
+
+.item .listPratos{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: 40px;
+    margin-top: 50px;
+    max-width: 70rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+}
+.pratos{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(238, 238, 238);
+    text-align: center;
+    padding-bottom: 25px;
+    height: 30rem;
+    border-radius: 20px;
+}
+.item .listPratos img{
+    margin-top: 10px;
+    width: 18rem;
+}
+.card-descricao{
+    padding: 4px 25px;
+    font-size: 16px;
+}
+.addCart{
+    background-color: #ecb130;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+}
+.addCart:hover{
+    filter: brightness(0.9);
+}
+
 /* SLIDER --- */
 #init-slide{
     margin-top: 4rem;
@@ -241,4 +278,15 @@ body{
 }
 .text-preco{
     font-weight: 700;
+}
+
+.btnMinos,
+.btnPlus{
+    width: 25px;
+    border: none;
+    border-radius: 50%;
+}
+.btnMinos:hover,
+.btnPlus:hover{
+    background-color: #ddd;
 }
