@@ -138,7 +138,7 @@ const reloadPrato = () => {
         }
         qtdNotificacaoCarrinho.innerText = count
         carroTotal.innerText = "R$ " + totalPrice.toLocaleString()
-    
+
     })
 }
 
@@ -146,6 +146,10 @@ const changeQuantidade = (key, qtd) => {
     if(qtd == 0){
         delete listaDePratos[key]
         qtdNotificacaoCarrinho.innerText = 0
+        carroTotal.innerText = "R$ " + 0
+        if(listaDePratos.length == "" ||listaDePratos.length < 1 ){
+            hideCarro()
+        }
     }else{
         listaDePratos[key].qtd = qtd
         listaDePratos[key].preco = qtd * pratos[key].preco
@@ -160,6 +164,7 @@ carroLimpar.addEventListener('click', (key, qtd) => {
     carroTotal.innerText = "R$ " + 0
     carroBody.innerHTML = `
     <div class="carro-vazio" style="display: block;">Seu carro está vazio.</div>`
+    hideCarro()
 })
 
 initApp()
