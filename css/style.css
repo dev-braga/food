@@ -200,39 +200,30 @@ body{
 .item .listPratos{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
-    gap: 40px;
+    gap: 10px;
     margin-top: 50px;
-    max-width: 70rem;
     margin-left: auto;
     margin-right: auto;
-    padding: 10px;
+    padding: 5px;
 }
-.pratos{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(238, 238, 238);
-    text-align: center;
-    padding-bottom: 25px;
-    height: 30rem;
-    border-radius: 20px;
+.card-img-top{
+    padding: 10px;
 }
 .item .listPratos img{
     margin-top: 10px;
-    width: 18rem;
 }
 .card-descricao{
-    padding: 4px 25px;
-    font-size: 16px;
+    padding: 4px 10px;
+    font-size: 14px;
 }
-.addCart{
+.btnAdd{
     background-color: #ecb130;
     padding: 10px;
     border: none;
     border-radius: 8px;
+    margin-bottom: 15px;
 }
-.addCart:hover{
+.btnAdd:hover{
     filter: brightness(0.9);
 }
 
@@ -254,15 +245,7 @@ body{
 /*
     SESSAO  CARDAPIO =========================
 */
-.card{
-    border: none;
-    background-color: #f7f7f7;
-    border-radius: 20px;
-    padding: 15px;
-}
-.card:hover{
-    cursor: pointer;
-}
+
 #section-cardapio{
     text-align: center;
 }
@@ -289,4 +272,8 @@ body{
 .btnMinos:hover,
 .btnPlus:hover{
     background-color: #ddd;
+}
+
+.list-group li{
+    list-style: none;
 }

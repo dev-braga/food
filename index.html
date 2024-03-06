@@ -84,18 +84,59 @@
               <strong>Total</strong>
               <span class="carro-total">0</span>
             </div>
-            <button class="carro-limpar">Limpar Carro</button>
-            <button class="carro-pedir">Fazer Pedido</button>
+            <button class="carro-limpar" >Limpar Carro</button>
+            <button class="carro-pedir" 
+              type="button" 
+              class="btn btn-primary" 
+              data-bs-toggle="modal" data-bs-target="#PedidoModal">
+              Fazer Pedido
+            </button>
           </div>
         </div>
-
-      <section id="section-cardapio" class="pt-5 text-center">
+        <!--- MODAIS =================================================================================================== -->
+        <!-- Modal para alertar que o Pedido foi inserido. -->
+        <div class="modal fade" id="ModalAcompanhamento" tabindex="-1" aria-labelledby="modalAcompanhamento" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalAcompanhamento">Ótimo!</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <h5>Estamos quase lá, seu pedido foi adicionado no carrinho.</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Modal de avanço para o usuário fazer o pedido -->
+        <div class="modal fade" id="PedidoModal" tabindex="-1" aria-labelledby="modalPedido" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalPedido">Confira seu pedido</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="modal-etapa1"><!-- ETAPA 1--></div>
+                <div class="modal-etapa2" style="display: none;"><!-- ETAPA 2--></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-pedir">Pedir</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <!--- MODAIS =================================================================================================== -->
+      
+        <section id="section-cardapio" class="pt-5 text-center">
           
         <h1 class="pt-5"> Nosso Cardápio</h1>
         <div class="item">
           <!-- Estrogonofe de frango --- -->
           <!-- OS DADOS VEM DO JSON -->
-          <div class="listPratos"></div>
+          <div class="listPratos container"></div>
         </div>
 
        <!-- Modal -->
