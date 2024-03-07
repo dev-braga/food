@@ -10,11 +10,13 @@ const carroOverlay = document.querySelector('.carro-overlay')
 const carroLimpar = document.querySelector('.carro-limpar')
 const carroPedir = document.querySelector('.carro-pedir')
 const carroBody = document.querySelector('.carro-body')
-const btnAddCarrinho = document.querySelector('.btnAdd')
 const carroTotal = document.querySelector('.carro-total')
 const cardapio = document.querySelector('.cardapio-container')
 const listPratosHTML = document.querySelector('.listPratos') 
 const btnPedir = document.querySelector('.btn-pedir')
+const btMinos = document.querySelector('.btnMinos')
+const btPlus = document.querySelector('.btPlus')
+let btnAdd = document.querySelector(`.btnAdd`);
 // Modais
 const modalEtapa1 = document.querySelector('.modal-etapa1') 
 const modalEtapa2 = document.querySelector('.modal-etapa2')
@@ -78,6 +80,8 @@ const salvarNoLocalStorage = () => {
 const carregarDoLocalStorage = () => {
     const carrinhoSalvo = JSON.parse(localStorage.getItem('carrinho')) || [];
     //listaDePratos = [...carrinhoSalvo];
+
+    habilitarBotoesAdicionar();
 };
 
 const setupListeners = () => {
@@ -90,13 +94,14 @@ const setupListeners = () => {
 }
 
 const initApp = () => {
+
     carregarDoLocalStorage();
 
     pratos.forEach((value, key) => {
         // Criando novo prato
         let novoPrato = document.createElement("div");
         novoPrato.classList.add("item");
-
+         
         novoPrato.innerHTML = `
             <div class="card rounded-4">
                 <img src="${value.image}" class="card-img-top" alt="">
@@ -104,20 +109,46 @@ const initApp = () => {
                     <h2 class="card-titulo">${value.titulo}</h2>
                     <h5 class="card-descricao">${value.texto}</h5>
                     <h3 class="card-preco">R$ ${value.preco.toLocaleString()}</h3>
-                    <button class="btnAdd" onclick="addAoCarrinho(${key})">
-                       Adicionar ao Carrinho
+                    <button type="button" 
+                    data-key="${key}" class="btnAdd" onclick="addAoCarrinho(${key})"
+                    data-bs-toggle="modal" data-bs-target="#ModalAcompanhamento${key}">
+                      Adicionar <i class="bi bi-cart-check-fill ico-btn"></i>
                     </button>
                 </div>
             </div>
+
+            <div class="modal fade" id="ModalAcompanhamento${key}" tabindex="-1" aria-labelledby="modalAcompanhamento${key}" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="dialog modal-dialog-centered">
+                    <i class="bi bi-cart-check-fill ico-dialog"></i>
+                    <div class="img-dialog">
+                        <img src="${value.image}" style="width: 5rem;"/>
+                    </div>
+                    <h5>Adicionado ao carrinho</h5>
+                    <p>${value.titulo}</p>
+                    <button 
+                    class="btn btn-light" 
+                    onclick="showCarro()"
+                    data-bs-dismiss="modal"
+                    >Ir para o carrinho</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         `;
-
         listPratosHTML.appendChild(novoPrato);
+        
     });
-
+    
     btnPedir.disabled = true; // Desabilitando botão caso o carrinho esteja vazio.
+
 };
-
-
 
 const addAoCarrinho = (key) => {
     // Verificar se já existe o produto no carrinho
@@ -125,11 +156,17 @@ const addAoCarrinho = (key) => {
         listaDePratos[key] = JSON.parse(JSON.stringify(pratos[key]))
         listaDePratos[key].qtd = 1
     }
-
+    
     // Salvar no localStorage
     salvarNoLocalStorage();
     
-    reloadPrato()
+    reloadPrato();
+     
+    // Modificar o texto do botão
+    const btnAdd = document.querySelector(`.btnAdd[data-key="${key}"]`);
+    btnAdd.innerText = 'Adicionado'
+    btnAdd.disabled = true
+     
 }
 const reloadPrato = () => {
     carroBody.innerHTML = "";
@@ -150,9 +187,10 @@ const reloadPrato = () => {
                 <h4>${value.titulo}</h4>
                 
                 <div class="carro-item-quantia">
-                    <button class="btnPlus" onclick="changeQuantidade(${key}, ${value.qtd - 1})">-</button>
+                    <button class="btMinos" 
+                    onclick="changeQuantidade(${key}, ${value.qtd - 1}, 'btMinos')" ${value.qtd < 2 ? 'disabled' : ''}>-</button>
                     <span class="qtd">${value.qtd}</span>
-                    <button class="btnMinos" onclick="changeQuantidade(${key}, ${value.qtd + 1})">+</button>
+                    <button class="btPlus" onclick="changeQuantidade(${key}, ${value.qtd + 1})">+</button>
                     <span class="carro-item-preco">R$ ${value.preco.toLocaleString()}</span>
                 </div>
 
@@ -162,34 +200,48 @@ const reloadPrato = () => {
             carroBody.appendChild(novoPrato)
         }
         qtdNotificacaoCarrinho.innerText = count
-        carroTotal.innerText = "R$ " + totalPrice.toLocaleString()
+        carroTotal.innerText = totalPrice.toLocaleString()
+        
     })
+
 }
 
+const habilitarBotoesAdicionar = () => {
+    const btnsAdicionar = document.querySelectorAll('.btnAdd');
+    btnsAdicionar.forEach(btn => {
+        btn.disabled = false;
+        btn.innerHTML = `Adicionar <i class="bi bi-cart-check-fill ico-btn"></i>`;
+        
+    });
+};
+
 const changeQuantidade = (key, qtd) => {
+
     if(qtd == 0){
         delete listaDePratos[key]
         qtdNotificacaoCarrinho.innerText = 0
         carroTotal.innerText = "R$ " + 0
-        if(listaDePratos.length == "" ||listaDePratos.length < 1 ){
-            hideCarro()
-        }
+        
     }else{
         listaDePratos[key].qtd = qtd
         listaDePratos[key].preco = qtd * pratos[key].preco
-    }
+    }   
+     
     reloadPrato()
 }
 
 carroLimpar.addEventListener('click', (key, qtd) => {
     carroBody.innerHTML = ""
     listaDePratos.length = 0
-    qtdNotificacaoCarrinho.innerText = 0
+    qtdNotificacaoCarrinho.innerText = 0 
     carroTotal.innerText = "R$ " + 0
-    carroBody.innerHTML = `
-    <div class="carro-vazio" style="display: block;">Seu carro está vazio.</div>`
+    carroBody.innerHTML = `<div class="carro-vazio" style="display: block;">Seu carro está vazio.</div>`
     document.querySelector('.btn-pedir').disabled = true // Desabilitar botão caso o array esteja vazio.
+    // Resetar o texto do botão 'Adicionar'
+    
     hideCarro()
+    carregarDoLocalStorage()
+    habilitarBotoesAdicionar();
 })
 
 // Botão de fazer o pedido ============

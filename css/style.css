@@ -263,17 +263,42 @@ body{
     font-weight: 700;
 }
 
-.btnMinos,
-.btnPlus{
+.btMinos,
+.btPlus{
     width: 25px;
     border: none;
     border-radius: 50%;
 }
-.btnMinos:hover,
-.btnPlus:hover{
+.btMinos:hover,
+.btPlus:hover{
     background-color: #ddd;
 }
 
 .list-group li{
     list-style: none;
 }
+.btAddCustom{
+    background-color: #9c0b1e;
+    color: #fff;
+}
+/* Alert dialog do modal que aparece ao clicar no botão de adicionar ao carrinho */
+.dialog{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+.img-dialog{
+    width: 5rem;
+    height: 5rem;
+}
+.ico-dialog{
+    font-size: 36px;
+    color: #188815;
+}
+.bi-cart-check-fill .ico-btn{
+    font-size: 24px;
+}
+
+/* ============== ============== ================ ================ ================== =============== */
