@@ -103,7 +103,9 @@ const initApp = () => {
          
         novoPrato.innerHTML = `
             <div class="card rounded-4">
-                <img src="${value.image}" class="card-img-top" alt="">
+                <div class="container-img-list">
+                    <img src="${value.image}" class="card-img-top" alt="">
+                </div>
                 <div class="">
                     <h2 class="card-titulo">${value.titulo}</h2>
                     <h5 class="card-descricao">${value.texto}</h5>
@@ -111,7 +113,7 @@ const initApp = () => {
                     <button type="button" 
                     data-key="${key}" class="btnAdd" onclick="addAoCarrinho(${key})"
                     data-bs-toggle="modal" data-bs-target="#ModalAcompanhamento${key}">
-                      Adicionar <i class="bi bi-cart-check-fill ico-btn"></i>
+                      Adicionar <i class="bi bi-cart-plus-fill ico-btn"></i>
                     </button>
                 </div>
             </div>
@@ -131,10 +133,14 @@ const initApp = () => {
                     <h5>Adicionado ao carrinho</h5>
                     <p>${value.titulo}</p>
                     <button 
-                    class="btn btn-light" 
-                    onclick="showCarro()"
-                    data-bs-dismiss="modal"
-                    >Ir para o carrinho</button>
+                        class="btn btn-success btn-modal" 
+                        data-bs-dismiss="modal"
+                        >Continuar comprando</button>
+                    <button 
+                        class="btn btn-light btn-modal" 
+                        onclick="showCarro()"
+                        data-bs-dismiss="modal"
+                    >Ir para o carrinho   <i class="bi bi-cart4"></i></button>
                 </div>
               </div>
             </div>
@@ -153,21 +159,25 @@ const addAoCarrinho = (key) => {
     // Verificar se já existe o produto no carrinho
     const existingIndex = listaDePratos.findIndex(item => item && item.id === pratos[key].id);
 
+
     if (existingIndex !== -1) {
         // Item já está no carrinho, incrementar a quantidade
         listaDePratos[existingIndex].qtd += 1;
+        listaDePratos[existingIndex].preco = pratos[key].preco * listaDePratos[existingIndex].qtd;
     } else {
         // Adicionar novo item ao carrinho
         const novoItem = JSON.parse(JSON.stringify(pratos[key]));
         novoItem.qtd = 1;
         listaDePratos.push(novoItem);
     }
-    
+
     // Salvar no localStorage
     salvarNoLocalStorage();
     reloadPrato();
-     
-
+    
+     // Modificar o ícone do botão
+    const btnAdd = document.querySelector(`.btnAdd[data-key="${key}"]`);
+    btnAdd.innerHTML = `Adicionar <i class="bi bi-cart-check-fill ico-btn-add"></i> ` 
 };
 
 
@@ -212,17 +222,19 @@ const reloadPrato = () => {
 }
 
 const excluirItemsCarrinho = (key) => {
+    const btnAdd = document.querySelector(`.btnAdd[data-key="${key}"]`);
+    btnAdd.innerHTML = `Adicionar <i class="bi bi-cart-plus-fill ico-btn"></i> `
     carroBody.innerHTML = ""
     listaDePratos.splice(key, 1);
-
+    
     reloadPrato()
 
     if(listaDePratos.length == 0){
         qtdNotificacaoCarrinho.innerText = 0
         carroTotal.innerText = "R$ " + 0
-        carroBody.innerHTML = `<div class="carro-vazio" style="display: block;">Seu carro está vazio.</div>`
+        carroBody.innerHTML = `<div class="carro-vazio" style="display: block;">Seu carro está vazio.</div>`   
+        btnAdd.innerHTML = `Adicionar <i class="bi bi-cart-plus-fill ico-btn"></i> `
     }
-   
 }
 
 const changeQuantidade = (key, qtd) => {
@@ -234,16 +246,23 @@ const changeQuantidade = (key, qtd) => {
 }
 
 carroLimpar.addEventListener('click', (key, qtd) => {
+    
     carroBody.innerHTML = ""
     listaDePratos.length = 0
     qtdNotificacaoCarrinho.innerText = 0 
     carroTotal.innerText = "R$ " + 0
     carroBody.innerHTML = `<div class="carro-vazio" style="display: block;">Seu carro está vazio.</div>`
     document.querySelector('.btn-pedir').disabled = true // Desabilitar botão caso o array esteja vazio.
-    // Resetar o texto do botão 'Adicionar'
     
+    // Resetando o texto de todos os botões 'Adicionar'
+    const btnsAdd = document.querySelectorAll('.btnAdd');
+    btnsAdd.forEach(btn => {
+        btn.innerHTML = `Adicionar <i class="bi bi-cart-plus-fill ico-btn"></i>`;
+    });
+
     hideCarro()
     carregarDoLocalStorage()
+    
 })
 
 // Botão de fazer o pedido ============
