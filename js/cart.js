@@ -36,35 +36,35 @@ const hideCarro = () => {
 const pratos = [
     {
         "id": 0,
-        "image": "/assets/estrogonofeFrango.png",
+        "image": "./assets/estrogonofeFrango.png",
         "titulo": "Estrogonofe de Frango",
         "texto": "Experimente nosso estrogonofe de frango com os melhores ingredientes",
         "preco": 14.99
     },
     {
         "id": 1,
-        "image": "/assets/estrogonofecarne.png",
+        "image": "./assets/estrogonofecarne.png",
         "titulo": "Estrogonofe de Carne",
         "texto": "Experimente nosso estrogonofe de frango com os melhores ingredientes",
         "preco": 14.99
     },
     {
         "id": 2,
-        "image": "/assets/lasanha.png",
+        "image": "./assets/lasanha.png",
         "titulo": "Lasanha",
         "texto": "Experimente nosso estrogonofe de frango com os melhores ingredientes",
         "preco": 14.99
     },
     {
         "id": 3,
-        "image": "/assets/frangoparmegiana.png",
+        "image": "./assets/frangoparmegiana.png",
         "titulo": "Parmegiana de Frango",
         "texto": "Experimente nosso estrogonofe de frango com os melhores ingredientes",
         "preco": 15.99
     },
     {
         "id": 4,
-        "image": "/assets/filemionaparmegiana.png",
+        "image": "./assets/filemionaparmegiana.png",
         "titulo": "Parmegiana de Filemignon",
         "texto": "Experimente nosso estrogonofe de frango com os melhores ingredientes",
         "preco": 15.99
