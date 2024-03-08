@@ -81,7 +81,6 @@ const carregarDoLocalStorage = () => {
     const carrinhoSalvo = JSON.parse(localStorage.getItem('carrinho')) || [];
     //listaDePratos = [...carrinhoSalvo];
 
-    habilitarBotoesAdicionar();
 };
 
 const setupListeners = () => {
@@ -152,22 +151,27 @@ const initApp = () => {
 
 const addAoCarrinho = (key) => {
     // Verificar se já existe o produto no carrinho
-    if(listaDePratos[key] == null){
-        listaDePratos[key] = JSON.parse(JSON.stringify(pratos[key]))
-        listaDePratos[key].qtd = 1
+    const existingIndex = listaDePratos.findIndex(item => item && item.id === pratos[key].id);
+
+    if (existingIndex !== -1) {
+        // Item já está no carrinho, incrementar a quantidade
+        listaDePratos[existingIndex].qtd += 1;
+    } else {
+        // Adicionar novo item ao carrinho
+        const novoItem = JSON.parse(JSON.stringify(pratos[key]));
+        novoItem.qtd = 1;
+        listaDePratos.push(novoItem);
     }
     
     // Salvar no localStorage
     salvarNoLocalStorage();
-    
     reloadPrato();
      
-    // Modificar o texto do botão
-    const btnAdd = document.querySelector(`.btnAdd[data-key="${key}"]`);
-    btnAdd.innerText = 'Adicionado'
-    btnAdd.disabled = true
-     
-}
+
+};
+
+
+
 const reloadPrato = () => {
     carroBody.innerHTML = "";
     let count = 0;
@@ -184,8 +188,9 @@ const reloadPrato = () => {
                 <img src="${value.image}" alt="">
                 
                 <div class="carro-item-detalhe">
-                <h4>${value.titulo}</h4>
-                
+                <h4><b>${value.titulo}</b></h4>
+                <a class="btnExcluirItems" onclick="excluirItemsCarrinho(${key})">Excluir</a>
+                <p>Quantidade</p>
                 <div class="carro-item-quantia">
                     <button class="btMinos" 
                     onclick="changeQuantidade(${key}, ${value.qtd - 1}, 'btMinos')" ${value.qtd < 2 ? 'disabled' : ''}>-</button>
@@ -200,32 +205,30 @@ const reloadPrato = () => {
             carroBody.appendChild(novoPrato)
         }
         qtdNotificacaoCarrinho.innerText = count
-        carroTotal.innerText = totalPrice.toLocaleString()
+        carroTotal.innerText = 'R$ ' + totalPrice.toLocaleString()
         
     })
 
 }
 
-const habilitarBotoesAdicionar = () => {
-    const btnsAdicionar = document.querySelectorAll('.btnAdd');
-    btnsAdicionar.forEach(btn => {
-        btn.disabled = false;
-        btn.innerHTML = `Adicionar <i class="bi bi-cart-check-fill ico-btn"></i>`;
-        
-    });
-};
+const excluirItemsCarrinho = (key) => {
+    carroBody.innerHTML = ""
+    listaDePratos.splice(key, 1);
+
+    reloadPrato()
+
+    if(listaDePratos.length == 0){
+        qtdNotificacaoCarrinho.innerText = 0
+        carroTotal.innerText = "R$ " + 0
+        carroBody.innerHTML = `<div class="carro-vazio" style="display: block;">Seu carro está vazio.</div>`
+    }
+   
+}
 
 const changeQuantidade = (key, qtd) => {
 
-    if(qtd == 0){
-        delete listaDePratos[key]
-        qtdNotificacaoCarrinho.innerText = 0
-        carroTotal.innerText = "R$ " + 0
-        
-    }else{
-        listaDePratos[key].qtd = qtd
-        listaDePratos[key].preco = qtd * pratos[key].preco
-    }   
+    listaDePratos[key].qtd = qtd
+    listaDePratos[key].preco = qtd * pratos[key].preco
      
     reloadPrato()
 }
@@ -241,7 +244,6 @@ carroLimpar.addEventListener('click', (key, qtd) => {
     
     hideCarro()
     carregarDoLocalStorage()
-    habilitarBotoesAdicionar();
 })
 
 // Botão de fazer o pedido ============

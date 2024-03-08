@@ -47,6 +47,14 @@ body{
     top: 7px;
 }
 
+.logo-titulo{
+    font-weight: 900;
+    margin-top: 10px;
+    background: linear-gradient(90deg, green 33.33%, rgb(2, 175, 2) 33.33%,rgb(248, 90, 90) 66.66%, red 66.66%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
 /*
     CARRINHO DE COMPRAS
 */
@@ -166,7 +174,6 @@ body{
 }
 .carro-item-detalhe h4{
     font-size: 1rem;
-    color: #9c0b1e;
 }
 .carro-item-quantia{
     margin-top: auto;
@@ -226,7 +233,14 @@ body{
 .btnAdd:hover{
     filter: brightness(0.9);
 }
-
+.btnExcluirItems{
+    text-decoration: none;
+    cursor: pointer;
+}
+.carro-item-detalhe p{
+    margin-bottom: 0;
+    margin-top: 5px;
+}
 /* SLIDER --- */
 #init-slide{
     margin-top: 4rem;
@@ -276,10 +290,6 @@ body{
 
 .list-group li{
     list-style: none;
-}
-.btAddCustom{
-    background-color: #9c0b1e;
-    color: #fff;
 }
 /* Alert dialog do modal que aparece ao clicar no botão de adicionar ao carrinho */
 .dialog{
