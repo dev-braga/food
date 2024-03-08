@@ -213,22 +213,31 @@ body{
     margin-right: auto;
     padding: 5px;
 }
+.card{
+    border: none;
+    background-color: #0c7723;
+    color: #ffffff;
+}
 .card-img-top{
     padding: 10px;
 }
 .item .listPratos img{
     margin-top: 10px;
 }
+.card-titulo{
+    margin: 0.5rem 1rem;
+}
 .card-descricao{
     padding: 4px 10px;
     font-size: 14px;
 }
 .btnAdd{
-    background-color: #ecb130;
+    background-color: #f1f1f1;
     padding: 10px;
     border: none;
     border-radius: 8px;
     margin-bottom: 15px;
+    margin-top: 15px;
 }
 .btnAdd:hover{
     filter: brightness(0.9);

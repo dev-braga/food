@@ -1,0 +1,8 @@
+@media (max-width: 991px){
+    .img-mobile{
+        display: block;
+    }
+    .img-desktop{
+        display: none;
+    }
+}
