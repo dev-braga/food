@@ -267,7 +267,7 @@ carroLimpar.addEventListener('click', (key, qtd) => {
 
 // Botão de fazer o pedido ============
 carroPedir.addEventListener('click', (key, qtd) => {
-
+    
     if(listaDePratos.length < 1){
         modalEtapa1.innerHTML = 'Sem itens'
     }
@@ -284,11 +284,31 @@ carroPedir.addEventListener('click', (key, qtd) => {
             </ul>
         `
         })
+        
     }
+
+    btnPedir.addEventListener('click', () => {
+        const msgTitle = '*Segue abaixo as informações do pedido:*\n\n';
+        const nmrPedido = '*N° Pedido:* 145\n'
+        const nomeCliente = '*Nome:* Bruno Braga\n\n'
+        const pd = '*_-- PEDIDOS --_*\n' 
+
+        const mensagem = listaDePratos.map((value) => {
+            
+            return `> *Prato:* ${value.titulo}, *Valor:* R$ ${value.preco.toLocaleString()}, *Quantidade:* ${value.qtd}
+            `
+        }).join('\n');
+        
+        const redirecionamento = `https://wa.me/5571985035822?text=
+                ${encodeURIComponent(msgTitle + nmrPedido + nomeCliente + pd + mensagem)}`;
+        
+        // Finalmente abrir o link do whatsapp
+        window.open(redirecionamento, '_blank')
+    });
     
 })
 
 
-
 initApp()
 setupListeners()
+
