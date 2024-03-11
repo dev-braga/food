@@ -242,10 +242,9 @@ body{
     font-size: 14px;
 }
 .container-img-list{
-    background-color:#e2e2e2;
-    border-radius: 12px;
-    height: 17rem;
+    background-color:#fafafa;
     display: flex;
+    border-radius:  10px 10px 0 0 ;
     justify-content: center;
     align-items: center;
 }
@@ -266,6 +265,7 @@ body{
 .btnExcluirItems{
     text-decoration: none;
     cursor: pointer;
+    color:rgb(209, 31, 31);
 }
 .carro-item-detalhe p{
     margin-bottom: 0;

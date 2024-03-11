@@ -1,8 +1,26 @@
-@media (max-width: 991px){
+@media (max-width: 765px){
     .img-mobile{
         display: block;
     }
     .img-desktop{
         display: none;
     }
+}
+@media (min-width: 766px){
+    .img-mobile{
+        display: none;
+    }
+    .img-desktop{
+        display: block;
+    }
+}
+
+/* ----- Tamanho de monitor menor ----- */
+@media (max-height: 760px){
+    .btMinos,
+    .btPlus{
+        width: 20px;
+        border: none;
+        border-radius: 50%;
+    } 
 }

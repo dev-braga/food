@@ -1,25 +1,5 @@
 {
-    "pratos": [
-        {
-            "id": 0,
-            "image": "/assets/estrogonofeFrango.png",
-            "titulo": "Estrogonofe de Frango",
-            "texto": "Experimente nosso estrogonofe de frango com os melhores ingredientes",
-            "preco": "R$ 14,99"
-        },
-        {
-            "id": 1,
-            "image": "/assets/lasanha.png",
-            "titulo": "Lasanha",
-            "texto": "Experimente nosso estrogonofe de frango com os melhores ingredientes",
-            "preco": "R$ 14,99"
-        },
-        {
-            "id": 2,
-            "image": "/assets/frangoparmegiana.png",
-            "titulo": "Parmegiana de Frango",
-            "texto": "Experimente nosso estrogonofe de frango com os melhores ingredientes",
-            "preco": "R$ 15,99"
-        }
+    "pedidos": [
+        
     ]
 }

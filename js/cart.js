@@ -17,6 +17,7 @@ const btnPedir = document.querySelector('.btn-pedir')
 const btMinos = document.querySelector('.btnMinos')
 const btPlus = document.querySelector('.btPlus')
 let btnAdd = document.querySelector(`.btnAdd`);
+let pedido = 1 // Incrementar o número de pedidos.
 // Modais
 const modalEtapa1 = document.querySelector('.modal-etapa1') 
 const modalEtapa2 = document.querySelector('.modal-etapa2')
@@ -107,9 +108,9 @@ const initApp = () => {
                     <img src="${value.image}" class="card-img-top" alt="">
                 </div>
                 <div class="">
-                    <h2 class="card-titulo">${value.titulo}</h2>
-                    <h5 class="card-descricao">${value.texto}</h5>
-                    <h3 class="card-preco">R$ ${value.preco.toLocaleString()}</h3>
+                    <h2 class="">${value.titulo}</h2>
+                    <h5 class="">${value.texto}</h5>
+                    <h3 class="">R$ ${value.preco.toLocaleString()}</h3>
                     <button type="button" 
                     data-key="${key}" class="btnAdd" onclick="addAoCarrinho(${key})"
                     data-bs-toggle="modal" data-bs-target="#ModalAcompanhamento${key}">
@@ -156,6 +157,7 @@ const initApp = () => {
 };
 
 const addAoCarrinho = (key) => {
+    //salvarNoFirebase()
     // Verificar se já existe o produto no carrinho
     const existingIndex = listaDePratos.findIndex(item => item && item.id === pratos[key].id);
 
@@ -178,9 +180,14 @@ const addAoCarrinho = (key) => {
      // Modificar o ícone do botão
     const btnAdd = document.querySelector(`.btnAdd[data-key="${key}"]`);
     btnAdd.innerHTML = `Adicionar <i class="bi bi-cart-check-fill ico-btn-add"></i> ` 
+
 };
 
 
+// Função para salvar no Firebase
+const salvarNoFirebase = () => {
+    db.ref('carrinho').set(listaDePratos);
+};
 
 const reloadPrato = () => {
     carroBody.innerHTML = "";
@@ -199,7 +206,7 @@ const reloadPrato = () => {
                 
                 <div class="carro-item-detalhe">
                 <h4><b>${value.titulo}</b></h4>
-                <a class="btnExcluirItems" onclick="excluirItemsCarrinho(${key})">Excluir</a>
+                <a class="btnExcluirItems" onclick="excluirItemsCarrinho(${key})"><b>Excluir <i class="bi bi-trash3"></i></b></a>
                 <p>Quantidade</p>
                 <div class="carro-item-quantia">
                     <button class="btMinos" 
@@ -288,8 +295,10 @@ carroPedir.addEventListener('click', (key, qtd) => {
     }
 
     btnPedir.addEventListener('click', () => {
+        pedido++;
+
         const msgTitle = '*Segue abaixo as informações do pedido:*\n\n';
-        const nmrPedido = '*N° Pedido:* 145\n'
+        const nmrPedido = `*N° Pedido:* ${pedido}\n`
         const nomeCliente = '*Nome:* Bruno Braga\n\n'
         const pd = '*_-- PEDIDOS --_*\n' 
 
