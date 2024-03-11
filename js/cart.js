@@ -308,7 +308,7 @@ carroPedir.addEventListener('click', (key, qtd) => {
             `
         }).join('\n');
         
-        const redirecionamento = `https://wa.me/5571985035822?text=
+        const redirecionamento = `https://wa.me/5571982877132?text=
                 ${encodeURIComponent(msgTitle + nmrPedido + nomeCliente + pd + mensagem)}`;
         
         // Finalmente abrir o link do whatsapp
