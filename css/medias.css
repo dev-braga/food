@@ -22,5 +22,7 @@
         width: 20px;
         border: none;
         border-radius: 50%;
+        text-align: center;
+        align-items: center;
     } 
 }

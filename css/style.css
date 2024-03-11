@@ -154,15 +154,28 @@ body{
 .carro-limpar{ /* Botão de limpar -- */ 
     background-color: rgb(240, 240, 240);
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     font-weight: 700;
+    filter: drop-shadow(2px 3px 5px rgba(240, 240, 240, 0.322));
+}
+.carro-total{
+    font-weight: 800;
+}
+.carro-limpar:hover{
+    background-color: rgb(216, 216, 216);
+    filter: drop-shadow(2px 3px 5px rgba(240, 240, 240, 0.863));
 }
 .carro-pedir{
-    background-color: rgb(201, 125, 27);
+    background-color: rgb(131, 18, 24);
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     font-weight: 700;
     color: #fff;
+    filter: drop-shadow(2px 3px 5px rgba(131, 18, 24, 0.322));
+}
+.carro-pedir:hover{
+    background-color: rgb(107, 14, 19);
+    filter: drop-shadow(2px 3px 5px rgba(131, 18, 24, 0.568));
 }
 
 /* --- --- --- --- */
