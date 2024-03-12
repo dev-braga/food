@@ -37,37 +37,37 @@ const hideCarro = () => {
 const pratos = [
     {
         "id": 0,
-        "image": "./assets/estrogonofeFrango.png",
+        "image": "./assets/estrog-frango-card.jpg",
         "titulo": "Estrogonofe de Frango",
         "texto": "Experimente nosso estrogonofe de frango com os melhores ingredientes",
         "preco": 14.99
     },
     {
         "id": 1,
-        "image": "./assets/estrogonofecarne.png",
+        "image": "./assets/estrog-carne-card.jpg",
         "titulo": "Estrogonofe de Carne",
-        "texto": "Experimente nosso estrogonofe de frango com os melhores ingredientes",
+        "texto": "Experimente nosso estrogonofe de carne com os melhores ingredientes",
         "preco": 14.99
     },
     {
         "id": 2,
-        "image": "./assets/lasanha.png",
-        "titulo": "Lasanha",
-        "texto": "Experimente nosso estrogonofe de frango com os melhores ingredientes",
+        "image": "./assets/lasanha-card.jpg",
+        "titulo": "Lasanha à bolonhesa",
+        "texto": "Experimente nossa Lasanha com os melhores ingredientes",
         "preco": 14.99
     },
     {
         "id": 3,
-        "image": "./assets/frangoparmegiana.png",
+        "image": "./assets/parmegiana-frango-card.jpg",
         "titulo": "Parmegiana de Frango",
-        "texto": "Experimente nosso estrogonofe de frango com os melhores ingredientes",
+        "texto": "Experimente nossa Parmegiana de Frango com os melhores ingredientes",
         "preco": 15.99
     },
     {
         "id": 4,
-        "image": "./assets/filemionaparmegiana.png",
+        "image": "./assets/parmegiana-file-card.jpg",
         "titulo": "Parmegiana de Filemignon",
-        "texto": "Experimente nosso estrogonofe de frango com os melhores ingredientes",
+        "texto": "Experimente nosso Parmegiana de Filemignon com os melhores ingredientes",
         "preco": 15.99
     }
 ]
@@ -105,11 +105,11 @@ const initApp = () => {
         novoPrato.innerHTML = `
             <div class="card rounded-4">
                 <div class="container-img-list">
-                    <img src="${value.image}" class="card-img-top" alt="">
+                    <img src="${value.image}" class="img-fluid" alt="">
                 </div>
                 <div class="">
-                    <h2 class="">${value.titulo}</h2>
-                    <h5 class="">${value.texto}</h5>
+                    <h4 class="card-title mt-4">${value.titulo}</h4>
+                    <p class="p-3">${value.texto}</p>
                     <h3 class="">R$ ${value.preco.toLocaleString()}</h3>
                     <button type="button" 
                     data-key="${key}" class="btnAdd" onclick="addAoCarrinho(${key})"
@@ -127,9 +127,9 @@ const initApp = () => {
               </div>
               <div class="modal-body">
                 <div class="dialog modal-dialog-centered">
-                    <i class="bi bi-cart-check-fill ico-dialog"></i>
                     <div class="img-dialog">
                         <img src="${value.image}" style="width: 5rem;"/>
+                        <i class="bi bi-check-circle-fill check"></i>
                     </div>
                     <h5>Adicionado ao carrinho</h5>
                     <p>${value.titulo}</p>

@@ -33,6 +33,74 @@ body{
     justify-content: center;
     padding: 10px 1rem;
 }
+ 
+/* BOTAO MOBILE ===================== */
+.navbar-toggler{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    right: 14px;
+    transition: .5s ease-in-out;
+}
+.navbar-toggler,
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus{
+    outline: none;
+    box-shadow: none;
+    border: 0;
+}
+
+.navbar-toggler span{
+    margin: 0;
+    padding: 0;
+}
+
+.toggler-icon{
+    display: block;
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background-color: #808080;
+    border-radius: 1px;
+    opacity: 1;
+    left: 3;
+    transform: rotate(0deg);
+    transition: 0.25s ease-in-out; 
+}
+.middle-bar{
+    margin-top: 0px;
+}
+
+/* quando clicado */
+.navbar-toggler .top-bar{
+    margin-top:0px;
+    transform: rotate(135deg);
+}
+.navbar-toggler .middle-bar{
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.navbar-toggler .bottom-bar{
+    margin-top:0px;
+    transform: rotate(-135deg);
+}
+
+/* quando o menu é aberto */
+.navbar-toggler.collapsed .top-bar{
+    margin-top: -12px;
+    transform: rotate(0deg);
+}
+
+.navbar-toggler.collapsed .middle-bar{
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+.navbar-toggler.collapsed .bottom-bar{
+    margin-top: 12px;
+    transform: rotate(0deg);
+}
+
 .cart{
     align-items: center;
     padding: 0;
@@ -184,11 +252,15 @@ body{
 .carro-item{
     display: flex;
     gap: 10px;
+    border-radius: 10px;
 }
 .carro-item img{
-    width: 100px;
-    height: 100px;
+    width: auto;
+    height: auto;
+    max-width: 100px;
+    max-height: 100px;
     object-fit: contain;
+    border-radius: 10px;
 }
 
 .carro-item-detalhe{
@@ -239,8 +311,14 @@ body{
 }
 .card{
     border: none;
-    background-color: #ad2b3c;
-    color: #ffffff;
+    background-color: #f3f3f3;
+    color: #333333;
+}
+.card-conteudo{
+    z-index: 1000;
+}
+.img-fluid{
+    border-radius: 10px 10px 0 0;
 }
 .card-img-top{
     padding: 10px;
@@ -346,8 +424,29 @@ body{
     align-items: center;
 }
 .img-dialog{
-    width: 5rem;
-    height: 5rem;
+    position: relative;
+    width: 5.5rem;
+    height: 5.5rem;
+    border:  5px solid #188815;
+    border-radius: 50%;
+}
+.img-dialog img{
+    width: 5.5rem;
+    height: 100%;
+    border-radius: 50%;
+    position: relative;
+    bottom: 10px;
+    right: 1px;
+    background-size: cover;
+}
+.bi.bi-check-circle-fill{
+    position: absolute;
+    top: -15px;
+    right: -20px;
+    color: #188815;
+    font-size: 34px;
+    width: 34px;
+    z-index: 2000;
 }
 .ico-dialog{
     font-size: 36px;
