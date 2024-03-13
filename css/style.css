@@ -341,7 +341,8 @@ body{
     align-items: center;
 }
 .btnAdd{
-    background-color: #f1f1f1;
+    background-color: #198754;
+    color: #fff;
     padding: 10px;
     border: none;
     border-radius: 8px;
@@ -403,9 +404,9 @@ body{
 
 .btMinos,
 .btPlus{
-    width: 25px;
     border: none;
     border-radius: 50%;
+    color: #333333;
 }
 .btMinos:hover,
 .btPlus:hover{
@@ -442,9 +443,9 @@ body{
 .bi.bi-check-circle-fill{
     position: absolute;
     top: -15px;
-    right: -20px;
+    right: -18px;
     color: #188815;
-    font-size: 34px;
+    font-size: 24px;
     width: 34px;
     z-index: 2000;
 }

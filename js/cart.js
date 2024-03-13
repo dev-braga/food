@@ -1,4 +1,3 @@
-
 const carro = document.querySelector(".carro");
 const qtd = document.querySelector(".qtd")
 const qtdNotificacaoCarrinho = document.querySelector('.counter-cart')
@@ -108,7 +107,7 @@ const initApp = () => {
                     <img src="${value.image}" class="img-fluid" alt="">
                 </div>
                 <div class="">
-                    <h4 class="card-title mt-4">${value.titulo}</h4>
+                    <h4 class="card-title mt-4 p-1"><b>${value.titulo}</b></h4>
                     <p class="p-3">${value.texto}</p>
                     <h3 class="">R$ ${value.preco.toLocaleString()}</h3>
                     <button type="button" 
