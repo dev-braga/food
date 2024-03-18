@@ -68,6 +68,13 @@ const pratos = [
         "titulo": "Parmegiana de Filemignon",
         "texto": "Experimente nosso Parmegiana de Filemignon com os melhores ingredientes",
         "preco": 15.99
+    },
+    {
+        "id": 5,
+        "image": "./assets/FIT.jpg",
+        "titulo": "Fitness",
+        "texto": "Experimente nossa Comida Fitness com os melhores ingredientes",
+        "preco": 13.99
     }
 ]
 
