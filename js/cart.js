@@ -109,6 +109,7 @@ const initApp = () => {
         novoPrato.classList.add("item");
          
         novoPrato.innerHTML = `
+        
             <div class="card rounded-4">
                 <div class="container-img-list">
                     <img src="${value.image}" class="img-fluid" alt="">
@@ -120,7 +121,7 @@ const initApp = () => {
                     <button type="button" 
                     data-key="${key}" class="btnAdd" onclick="addAoCarrinho(${key})"
                     data-bs-toggle="modal" data-bs-target="#ModalAcompanhamento${key}">
-                      Adicionar <i class="bi bi-cart-plus-fill ico-btn"></i>
+                     <i class="bi bi-plus ico-btn"></i>
                     </button>
                 </div>
             </div>
@@ -183,10 +184,6 @@ const addAoCarrinho = (key) => {
     salvarNoLocalStorage();
     reloadPrato();
     
-     // Modificar o ícone do botão
-    const btnAdd = document.querySelector(`.btnAdd[data-key="${key}"]`);
-    btnAdd.innerHTML = `Adicionar <i class="bi bi-cart-check-fill ico-btn-add"></i> ` 
-
 };
 
 

@@ -6,6 +6,10 @@
     .navbar-brand img {
         width: 3.5rem;
     }
+    .btnAdd{
+        visibility: visible;
+        transform: scale(1);
+    }
 }
 
 @media (max-width: 765px){
@@ -29,7 +33,7 @@
 @media (max-height: 760px){
     .btMinos,
     .btPlus{
-        width: 20px;
+        width: 24px;
         border: none;
         border-radius: 50%;
         text-align: center;

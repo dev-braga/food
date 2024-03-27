@@ -350,13 +350,22 @@ body{
     align-items: center;
 }
 .btnAdd{
+    visibility: hidden;
     background-color: #198754;
     color: #fff;
-    padding: 10px;
     border: none;
-    border-radius: 8px;
+    border-radius: 50px;
     margin-bottom: 15px;
     margin-top: 15px;
+    width: 2.5rem;
+    height: 2.5rem;
+    transition: ease-in-out 0.2s;
+    transform:scale(0);
+}
+.card:hover .btnAdd{
+    visibility:visible;
+    transition: ease-in-out 0.2s;
+    transform:scale(1)
 }
 .btnAdd:hover{
     filter: brightness(0.9);
@@ -413,6 +422,7 @@ body{
 
 .btMinos,
 .btPlus{
+    width: 25px;
     border: none;
     border-radius: 50%;
     color: #333333;
@@ -463,6 +473,9 @@ body{
     color: #188815;
 }
 .bi-cart-check-fill .ico-btn{
+    font-size: 24px;
+}
+.bi-plus{
     font-size: 24px;
 }
 
