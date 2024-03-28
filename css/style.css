@@ -357,8 +357,6 @@ body{
     border-radius: 50px;
     margin-bottom: 15px;
     margin-top: 15px;
-    width: 2.5rem;
-    height: 2.5rem;
     transition: ease-in-out 0.2s;
     transform:scale(0);
 }
