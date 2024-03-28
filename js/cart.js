@@ -73,7 +73,7 @@ const pratos = [
         "id": 5,
         "image": "./assets/FIT.jpg",
         "titulo": "Fitness",
-        "texto": "Experimente nossa Comida Fitness com os melhores ingredientes",
+        "texto": "Arroz, Frangro grelhado, Cenoura, Beterraba, Acelga, Uvas pretas, Ovo.",
         "preco": 13.99
     }
 ]
@@ -120,7 +120,7 @@ const initApp = () => {
                                 <div class="description">${value.texto}</div>
                                 <div class="prices-container">
                                     <div class="to-price">
-                                        <span class="price-description">A partir de</span>
+                                        <span class="price-description">a partir de</span>
                                         <span class="price-value">R$&nbsp;${value.preco.toLocaleString()}</span>
                                     </div>
                                 </div>

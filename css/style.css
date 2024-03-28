@@ -8,8 +8,8 @@ body{
     top: .2rem;
 }
 .navbar-brand img {
-    width: 6.5rem;
-    border: 4px solid #fff;
+    max-width: 100px;
+    border: 5px solid #fff;
     border-radius: 50%;
 }
 .navbar{
@@ -26,9 +26,10 @@ body{
 .navbar .nav-link{
     display: flex;
     margin: 0;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 500;
     vertical-align: middle;
+    margin-right: 1rem;
 }
 .nav-link .cart{
     padding: 0;
@@ -231,6 +232,7 @@ body{
     border: none;
     border-radius: 5px;
     font-weight: 700;
+    color: #181818;
     filter: drop-shadow(2px 3px 5px rgba(240, 240, 240, 0.322));
 }
 .carro-total{
@@ -305,7 +307,10 @@ body{
 .btn-add-carrinho{
     z-index: 200;
 }
-
+.item{
+    display: flex;
+    justify-content: center;
+}
 .item .listPratos{
     display: grid;
     grid-template-columns: repeat(3, minmax(20rem, 1fr));
@@ -314,6 +319,7 @@ body{
     margin-left: 2rem;
     margin-right: 2rem;
     padding: 5px;
+    max-width: 1640px;
 }
 .products-section{
     width: 100%;
@@ -355,29 +361,17 @@ body{
     -ms-flex-pack: justify;
     -moz-justify-content: space-between;
     -webkit-justify-content: space-between;
-    justify-content: space-between;
-    
+    justify-content: space-between; 
+    text-align: start;
+    font-weight: 300;
     min-height: 46px;
-    font-size: 16px;
-    color: #181818;
+    font-size: 20px;
+    color: #2e2e2e;
     align-items: flex-start;
     margin-top: 10px;
     font-weight: 700;
 }
-.add-btn, .js-add-btn {
-    position: absolute;
-    top: 6rem;
-    right: 10px;
-    visibility: hidden;
-    background-color: #198754;
-    color: #fff;
-    border: none;
-    border-radius: 50px;
-    margin-bottom: 15px;
-    margin-top: 15px;
-    transition: ease-in-out 0.2s;
-    transform: scale(0);
-}
+
 .title-navbar{
     display: none;
     margin-right: 1.5rem;
@@ -409,10 +403,14 @@ body{
 ul{
     list-style: none;
 }
+.price-description{
+    font-weight: 400;
+}
 .prices-container{
     display: grid;
     grid-template-columns: auto auto;
-    font-weight: 600;
+    font-weight: 800;
+    color: #3f3f3f;
 }
 .price-value{
     font-size: 18px;
@@ -454,7 +452,9 @@ ul{
     justify-content: flex-start;
     padding: 0;
     margin: 0;
+    font-weight: 300;
     overflow: visible;
+    text-align: start;
     gap: 12px;
 }
 .item-content {
@@ -536,12 +536,12 @@ ul{
     -webkit-box-flex: 4;
     -moz-flex-grow: 4;
     -ms-flex-positive: 4;
-    flex-grow: 4;
+    text-align: start;
     color: #6e6e6e;
     display: -webkit-box;
     font-size: 14px;
     font-weight: light;
-    letter-spacing: .2px;
+    letter-spacing: .9px;
     line-height: 1.4;
     margin-bottom: 10px;
     overflow: hidden;
