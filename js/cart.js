@@ -36,35 +36,35 @@ const hideCarro = () => {
 const pratos = [
     {
         "id": 0,
-        "image": "./assets/estrog-frango-card.jpg",
+        "image": "https://i1.sndcdn.com/artworks-9JxiPFC5YMiYG7Mc-vgIfTA-t500x500.jpg",
         "titulo": "Estrogonofe de Frango",
         "texto": "Experimente nosso estrogonofe de frango com os melhores ingredientes",
         "preco": 14.99
     },
     {
         "id": 1,
-        "image": "./assets/estrog-carne-card.jpg",
+        "image": "https://avatars.mds.yandex.net/i?id=c00750407a85221d661657e33f4f5520-5870067-images-thumbs&n=13",
         "titulo": "Estrogonofe de Carne",
         "texto": "Experimente nosso estrogonofe de carne com os melhores ingredientes",
         "preco": 14.99
     },
     {
         "id": 2,
-        "image": "./assets/lasanha-card.jpg",
+        "image": "https://avatars.mds.yandex.net/i?id=8d78123db6a77e2b836d9cd74fd182ff-5242761-images-thumbs&n=13",
         "titulo": "Lasanha à bolonhesa",
         "texto": "Experimente nossa Lasanha com os melhores ingredientes",
         "preco": 14.99
     },
     {
         "id": 3,
-        "image": "./assets/parmegiana-frango-card.jpg",
+        "image": "https://avatars.mds.yandex.net/i?id=2a0000017a1ac3c18f1acf160024bf8e413b-4253510-images-thumbs&n=13",
         "titulo": "Parmegiana de Frango",
         "texto": "Experimente nossa Parmegiana de Frango com os melhores ingredientes",
         "preco": 15.99
     },
     {
         "id": 4,
-        "image": "./assets/parmegiana-file-card.jpg",
+        "image": "https://i.pinimg.com/originals/4c/9f/00/4c9f002ffeeb47cd4edb654ac7d77d44.jpg",
         "titulo": "Parmegiana de Filemignon",
         "texto": "Experimente nosso Parmegiana de Filemignon com os melhores ingredientes",
         "preco": 15.99
@@ -110,21 +110,36 @@ const initApp = () => {
          
         novoPrato.innerHTML = `
         
-            <div class="card rounded-4">
-                <div class="container-img-list">
-                    <img src="${value.image}" class="img-fluid" alt="">
-                </div>
-                <div class="">
-                    <h4 class="card-title mt-4 p-1"><b>${value.titulo}</b></h4>
-                    <p class="p-3">${value.texto}</p>
-                    <h3 class="">R$ ${value.preco.toLocaleString()}</h3>
-                    <button type="button" 
-                    data-key="${key}" class="btnAdd" onclick="addAoCarrinho(${key})"
-                    data-bs-toggle="modal" data-bs-target="#ModalAcompanhamento${key}">
-                     <i class="bi bi-plus ico-btn"></i>
-                    </button>
-                </div>
+        <div class="products-section-body">
+            <div class="products-section">
+                <ul id="items-list" class="items-list">
+                    <li class="item">
+                        <div class="item-content">
+                            <div class="item-left-side">
+                                <div class="title">${value.titulo}</div>
+                                <div class="description">${value.texto}</div>
+                                <div class="prices-container">
+                                    <div class="to-price">
+                                        <span class="price-description">A partir de</span>
+                                        <span class="price-value">R$&nbsp;${value.preco.toLocaleString()}</span>
+                                    </div>
+                                </div>
+                                <button type="button" 
+                            data-key="${key}" class="btnAdd" data-bs-toggle="modal" data-bs-target="#ModalAcompanhamento${key}">
+                            <i class="bi bi-plus ico-btn"></i>
+                            </button>
+                                <div class="amount-wrapper js-amount-wrapper is-hidden"></div>
+                            </div>
+                            <div class="item-right-side">
+                                <img width="130" height="130" alt="Pratos Executivos:" src="${value.image}">
+                                <div class="js-loading-img-placeholder lazyloading-placeholder lazy-loading-done"></div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
+        </div>
+
 
             <div class="modal fade" id="ModalAcompanhamento${key}" tabindex="-1" aria-labelledby="modalAcompanhamento${key}" aria-hidden="true">
           <div class="modal-dialog">
@@ -135,15 +150,43 @@ const initApp = () => {
               <div class="modal-body">
                 <div class="dialog modal-dialog-centered">
                     <div class="img-dialog">
-                        <img src="${value.image}" style="width: 5rem;"/>
-                        <i class="bi bi-check-circle-fill check"></i>
+                        <img src="${value.image}" class="img-fluid"/>
                     </div>
-                    <h5>Adicionado ao carrinho</h5>
+
                     <p>${value.titulo}</p>
+
+                    <div id="item-properties" class="item-properties">
+                        <div class="property">
+                            <p class="title">Chegou a hora de você escolher o seu acompanhamento:</p>
+                            <p class="description">Escolha no máximo 1 opção.</p>
+                            <p class="errors"></p>
+                        </div>
+
+                        <div class="options">
+                            <ul class="item-properties-list">
+                                <li>
+                                    <div>
+                                        <img src="/img/item_image_placeholder.png" class="option-cover-photo--placeholder">
+                                        <span class="span-checkbox">
+                                            <span class="name">Arroz</span>
+                                            <span class="formatted-price" data-price="44.9">- Sem custo adiconal</span>
+                                        </span>
+                                    </div>
+                                    <label class="mdl-radio" for="item-acompanhamento">
+                                        <input id="item-acompanhamento" type="radio" class="item-acompanhamento-radio" name="item-acompanhamento" value="Arroz">
+                                    </label>
+                                   
+                                </li>
+                               
+                            </ul>
+                        </div>
+                    </div>
+
                     <button 
                         class="btn btn-success btn-modal" 
                         data-bs-dismiss="modal"
-                        >Continuar comprando</button>
+                        onclick="addAoCarrinho(${key})"
+                        > Adicionar ao carrinho</button>
                     <button 
                         class="btn btn-light btn-modal" 
                         onclick="showCarro()"
@@ -204,6 +247,7 @@ const reloadPrato = () => {
         if(value != null){
             let novoPrato = document.createElement("div")
             novoPrato.innerHTML = `
+
             <div class="carro-item">
                 <img src="${value.image}" alt="">
                 
@@ -233,7 +277,6 @@ const reloadPrato = () => {
 
 const excluirItemsCarrinho = (key) => {
     const btnAdd = document.querySelector(`.btnAdd[data-key="${key}"]`);
-    btnAdd.innerHTML = `Adicionar <i class="bi bi-cart-plus-fill ico-btn"></i> `
     carroBody.innerHTML = ""
     listaDePratos.splice(key, 1);
     
@@ -243,7 +286,6 @@ const excluirItemsCarrinho = (key) => {
         qtdNotificacaoCarrinho.innerText = 0
         carroTotal.innerText = "R$ " + 0
         carroBody.innerHTML = `<div class="carro-vazio" style="display: block;">Seu carro está vazio.</div>`   
-        btnAdd.innerHTML = `Adicionar <i class="bi bi-cart-plus-fill ico-btn"></i> `
     }
 }
 
@@ -263,12 +305,6 @@ carroLimpar.addEventListener('click', (key, qtd) => {
     carroTotal.innerText = "R$ " + 0
     carroBody.innerHTML = `<div class="carro-vazio" style="display: block;">Seu carro está vazio.</div>`
     document.querySelector('.btn-pedir').disabled = true // Desabilitar botão caso o array esteja vazio.
-    
-    // Resetando o texto de todos os botões 'Adicionar'
-    const btnsAdd = document.querySelectorAll('.btnAdd');
-    btnsAdd.forEach(btn => {
-        btn.innerHTML = `Adicionar <i class="bi bi-cart-plus-fill ico-btn"></i>`;
-    });
 
     hideCarro()
     carregarDoLocalStorage()
@@ -324,3 +360,12 @@ carroPedir.addEventListener('click', (key, qtd) => {
 initApp()
 setupListeners()
 
+
+function selectRadio(liElement) {
+    // Encontra o input de rádio dentro do elemento <li> clicado
+    const radioInput = liElement.querySelector('.item-acompanhamento-radio');
+    // Marca o rádio se não estiver marcado
+    if (!radioInput.checked) {
+        radioInput.checked = true;
+    }
+}
