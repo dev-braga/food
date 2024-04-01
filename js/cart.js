@@ -175,9 +175,7 @@ const initApp = () => {
                                     <label class="mdl-radio" for="item-acompanhamento">
                                         <input id="item-acompanhamento" type="radio" class="item-acompanhamento-radio" name="item-acompanhamento" value="Arroz">
                                     </label>
-                                   
                                 </li>
-                               
                             </ul>
                         </div>
                     </div>

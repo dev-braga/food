@@ -15,10 +15,22 @@
     <link rel="stylesheet" href="./css/swiper.css">
     <link rel="stylesheet" href="./css/medias.css">
 </head>
-<body>
+<body onload="verificarNome()">
+    <div class="apresentacao">
+      <div class="design-lateral">
+        
+      </div>
+      <div class="conteudo">
+        <h1 class="text-apresentacao text-light">Conte-nos seu nome :)</h1>
+        <input type="text" id="inputName" placeholder="Digite aqui.." />
+        <a class="btn btn-aps" onclick="logar()">Confirmar</a>
+      </div>
+    </div>
 
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
+    <div class="content-main lgg">
+      <nav class="navbar navbar-expand-lg">
+      
+        <div class="container">    
           <a class="navbar-brand" href="#">
             <img src="./assets/logo.png"  alt="">
           </a>
@@ -30,10 +42,10 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-              <a class="nav-link active" aria-current="page" href="#">Inicio</a>
-              <a class="nav-link" href="#section-cardapio">Cardápio</a>
-              <a class="nav-link" href="#">Contato</a>
-              <a class="nav-link cart" href="#">
+              <a class="nav-link boder-radius-left-bt" aria-current="page" href="#">Inicio</a>
+              <a class="nav-link line-l" href="#section-cardapio">Cardápio</a>
+              <a class="nav-link line-l" href="#">Contato</a>
+              <a class="nav-link cart boder-radius-right-bt line-l" href="#">
                 <i class="bi bi-cart4 icon-cart"></i>
                 <div class="counter-cart">
                     0
@@ -61,9 +73,6 @@
             <div class="swiper-slide" >
               <img src="./assets/3.png" alt="" class="img-fluid img-desktop">
               <img src="./assets/tablet-slide-3.png" alt="" class="img-fluid img-mobile">
-                <div class="slider-buttons">
-                    <a href="#section-cardapio" class="btn btn-warning btn-lg">Saber Mais</a>
-                </div>
             </div>
           </div>
           
@@ -159,56 +168,20 @@
 
       </section>
 
-      <footer class="py-5 py-md-5 px-4 px-md-3 text-body-secondary">
+      <footer>
         <div class="row container-fluid">
+          <div class="logo-footer">
+            <img src="/assets/logo.png" alt="" width="80">
+          </div>
 
-         <div class="col-lg-3 mb-3">
-           <a class="d-inline-flex align-items-center mb-2 text-body-emphasis text-decoration-none" href="/" aria-label="Bootstrap">
-             <img src="" alt="logo" width="180px">
-           </a>
-           <ul class="list-unstyled">
-             <li class="ps-4"><a href="https://github.com/dev-braga"> Dev Solutions </a></li>
-             <li class="ps-4"><b>Venha aproveitar o que tem de melhor!</b></li>
-             <li class="ps-4">CNPJ: 00.0000.00/0001-00</li>
-             <li class="ps-4">Atualmente v1.0</li>
-           </ul>
-         </div>
-
-         <div class="col-6 col-lg-2 offset-lg-1 mb-3">
-           <h5 class="mb-2">Links</h5><br>
-           <ul class="list-unstyled">
-             <li class="mb-2">
-               <a class="nav-link" aria-current="page" href="#">Início</a>
-             </li>
-             <li class="mb-2">
-               <a class="nav-link" href="#section-destinos">Cardápio</a>
-             </li>
-             <li class="mb-2">
-               <a class="nav-link" href="#section-servicos" >Contato</a>
-             </li>
-             <li class="mb-2">
-               <a class="nav-link" href="#section-quem-somos">Quem Somos</a>
-             </li>
-           </ul>
-         </div>
-         <div class="col-6 col-lg-2 mb-3">
-           <h5 class="mb-2"><b>Entre em contato:</b></h5><br>
-           <ul class="list-unstyled">
-             <li class="mb-2">
-               <p>Nossa equipe de suporte e vendas está disponível 24 horas por dia, 7 dias por semana para responder às suas dúvidas.</p>
-             </li>
-             <li class="mb-2">
-               <a class="btn btn-success btn-contato nowrap-btn" href="https://wa.me/5571982877132?text=Olá, gostaria de saber mais informações.">
-                 <div class="btn-contato-conteudo">
-                   <img src="./resource/point-tour/contato.svg" alt="">Contate-nos
-                 </div>
-               </a>
-             </li>
-           </ul>
-         </div>
-
+          <div class="footer-text">
+            <p><strong>2024 - Comida Gostosa - Todos os direitos reservados</strong><br>
+              As imagens expostas neste site são meramente ilustrativas.</p>
+            <h5>Desenvolvido por: <a href="https://github.com/dev-braga">ny_bruno</a></h5>
+          </div>
         </div>
      </footer>
+    </div>
 
     <!-- Importações ---- -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

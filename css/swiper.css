@@ -1,12 +1,13 @@
 .swiper-button-prev,
 .swiper-button-next
 {
-    color: #fff;
-    margin: 0px 20px;
+    color: #ffffff;
+    margin: 0px 0px;
+    
 }
 .swiper-pagination-bullet{
     --swiper-pagination-bullet-inactive-color: #000000;
     --swiper-pagination-bullet-inactive-opacity: 0.4;
     --swiper-pagination-color: #fff;
-    --swiper-pagination-bullet-size: 10px
+    --swiper-pagination-bullet-size: 10px;
 }

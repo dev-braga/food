@@ -39,6 +39,9 @@
     .container{
         max-width: 100%;
     }
+    .conteudo{
+        width: 80%;
+    }
     .item-content {
         border-radius: 0px;
         gap: 0;
