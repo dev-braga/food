@@ -86,4 +86,7 @@
         text-align: center;
         align-items: center;
     } 
+    .btnAdd{
+        border-radius: 70%;
+    }
 }
