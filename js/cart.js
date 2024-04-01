@@ -33,6 +33,20 @@ const hideCarro = () => {
     carroOverlay.classList.remove('show')
 } 
 
+const listAcomp = [
+    {
+        "id": 0,
+        "image": "https://lh3.googleusercontent.com/SpFzhfa825BAEv9bHzPgaZFezA9Xcdl7l_B7wh1zLIHnRbb4dH46ltt_k1yb4umbC84=w100",
+        "titulo": "Arroz com brócolis",
+    },
+    {
+        "id": 1,
+        "image": "https://avatars.mds.yandex.net/i?id=128f7c3c2989c19114977c6d4dc7efc2-5405548-images-thumbs&n=13",
+        "titulo": "Espaguete",
+    }
+
+]
+
 const pratos = [
     {
         "id": 0,
@@ -103,11 +117,13 @@ const initApp = () => {
 
     carregarDoLocalStorage();
 
+    let acompanhamentoSelecionado = '';
+
     pratos.forEach((value, key) => {
         // Criando novo prato
         let novoPrato = document.createElement("div");
         novoPrato.classList.add("item");
-         
+
         novoPrato.innerHTML = `
         
         <div class="products-section-body">
@@ -120,7 +136,7 @@ const initApp = () => {
                                 <div class="description">${value.texto}</div>
                                 <div class="prices-container">
                                     <div class="to-price">
-                                        <span class="price-description">a partir de</span>
+                                        <span class="price-description">A partir de</span>
                                         <span class="price-value">R$&nbsp;${value.preco.toLocaleString()}</span>
                                     </div>
                                 </div>
@@ -164,32 +180,28 @@ const initApp = () => {
 
                         <div class="options">
                             <ul class="item-properties-list">
-                                <li>
-                                    <div>
-                                        <img src="/img/item_image_placeholder.png" class="option-cover-photo--placeholder">
-                                        <span class="span-checkbox">
-                                            <span class="name">Arroz</span>
-                                            <span class="formatted-price" data-price="44.9">- Sem custo adiconal</span>
-                                        </span>
-                                    </div>
-                                    <label class="mdl-radio" for="item-acompanhamento">
-                                        <input id="item-acompanhamento" type="radio" class="item-acompanhamento-radio" name="item-acompanhamento" value="Arroz">
-                                    </label>
-                                </li>
+                                ${listAcomp.map((acomp, index) => `
+                                    <li id="${index}" data-acompanhamento="${acomp.titulo}">
+                                        <div>
+                                            <img src="${acomp.image}" class="option-cover-photo--placeholder" width="50">
+                                            <span class="span-checkbox">
+                                                <span class="name-radio">${acomp.titulo} - Sem custo adiconal</span>
+                                            </span>
+                                        </div>
+                                        <label class="mdl-radio" for="item-acompanhamento">
+                                            <input id="item-acompanhamento" type="radio" class="item-acompanhamento-radio" name="item-acompanhamento"  value="${acomp.titulo}">
+                                            <span class="radio-btn"></span>
+                                        </label>
+                                    </li>
+                                `).join()}
                             </ul>
                         </div>
                     </div>
 
                     <button 
-                        class="btn btn-success btn-modal" 
-                        data-bs-dismiss="modal"
-                        onclick="addAoCarrinho(${key})"
-                        > Adicionar ao carrinho</button>
-                    <button 
-                        class="btn btn-light btn-modal" 
-                        onclick="showCarro()"
-                        data-bs-dismiss="modal"
-                    >Ir para o carrinho   <i class="bi bi-cart4"></i></button>
+                        class="btn btn-success btn-modal"
+                        onclick="addAoCarrinho(${key}, '${value.titulo}')"
+                        > Adicionar • R$ ${value.preco.toLocaleString()}</button>
                 </div>
               </div>
             </div>
@@ -204,26 +216,47 @@ const initApp = () => {
 
 };
 
+
 const addAoCarrinho = (key) => {
-    //salvarNoFirebase()
-    // Verificar se já existe o produto no carrinho
-    const existingIndex = listaDePratos.findIndex(item => item && item.id === pratos[key].id);
+    if(checado){
+        //salvarNoFirebase()
+        // Verificar se já existe o produto no carrinho
+        const existingIndex = listaDePratos.findIndex(item => item && item.id === pratos[key].id);
 
 
-    if (existingIndex !== -1) {
-        // Item já está no carrinho, incrementar a quantidade
-        listaDePratos[existingIndex].qtd += 1;
-        listaDePratos[existingIndex].preco = pratos[key].preco * listaDePratos[existingIndex].qtd;
-    } else {
-        // Adicionar novo item ao carrinho
-        const novoItem = JSON.parse(JSON.stringify(pratos[key]));
-        novoItem.qtd = 1;
-        listaDePratos.push(novoItem);
+        if (existingIndex !== -1) {
+            // Item já está no carrinho, incrementar a quantidade
+            listaDePratos[existingIndex].qtd += 1;
+            listaDePratos[existingIndex].preco = pratos[key].preco * listaDePratos[existingIndex].qtd;
+        } else {
+            // Adicionar novo item ao carrinho
+            const novoItem = JSON.parse(JSON.stringify(pratos[key]));
+            novoItem.qtd = 1;
+            listaDePratos.push(novoItem);
+        }
+
+        // Salvar no localStorage
+        salvarNoLocalStorage();
+        reloadPrato();
+        
+        // Fecha o modal
+        const modalId = `ModalAcompanhamento${key}`;
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            const modalInstance = bootstrap.Modal.getInstance(modal);
+            if (modalInstance) {
+                modalInstance.hide();
+            }
+        }
+
+         // Exibe o acompanhamento selecionado no h3
+         const acompanhamentoSelecionado = document.querySelector(`#${modalId} .item-properties-list li input:checked`).value;
+         document.querySelector(`#${modalId} h3`).innerText = `Acompanhamento: ${acompanhamentoSelecionado}`;
+
+        checado = false;
+    }else {
+        alert('Selecione ao menos 1 acompanhamento.')
     }
-
-    // Salvar no localStorage
-    salvarNoLocalStorage();
-    reloadPrato();
     
 };
 
@@ -252,7 +285,9 @@ const reloadPrato = () => {
                 <div class="carro-item-detalhe">
                 <h4><b>${value.titulo}</b></h4>
                 <a class="btnExcluirItems" onclick="excluirItemsCarrinho(${key})"><b>Excluir <i class="bi bi-trash3"></i></b></a>
-                <p>Quantidade</p>
+                <p> Acompanhamento</p>
+                <h3 id="acompanhamento-${key}"></h3>  
+                <p>Unidades</p>
                 <div class="carro-item-quantia">
                     <button class="btMinos" 
                     onclick="changeQuantidade(${key}, ${value.qtd - 1}, 'btMinos')" ${value.qtd < 2 ? 'disabled' : ''}>-</button>
@@ -265,11 +300,16 @@ const reloadPrato = () => {
             </div>
             `;
             carroBody.appendChild(novoPrato)
+
+            if (value.acompanhamento) {
+                document.getElementById(`acompanhamento-${key}`).innerText = `Acompanhamento: ${value.acompanhamento}`;
+            }
         }
         qtdNotificacaoCarrinho.innerText = count
         carroTotal.innerText = 'R$ ' + totalPrice.toLocaleString()
         
     })
+
 
 }
 
@@ -285,6 +325,8 @@ const excluirItemsCarrinho = (key) => {
         carroTotal.innerText = "R$ " + 0
         carroBody.innerHTML = `<div class="carro-vazio" style="display: block;">Seu carro está vazio.</div>`   
     }
+    
+    checado = false
 }
 
 const changeQuantidade = (key, qtd) => {
@@ -306,7 +348,7 @@ carroLimpar.addEventListener('click', (key, qtd) => {
 
     hideCarro()
     carregarDoLocalStorage()
-    
+    checado = false
 })
 
 // Botão de fazer o pedido ============
@@ -367,3 +409,22 @@ function selectRadio(liElement) {
         radioInput.checked = true;
     }
 }
+
+// Obtém todos os elementos <li>
+const listaItens = document.querySelectorAll('.item-properties-list li');
+const modal = document.querySelector('.modal');
+let checado = false
+// Adiciona um evento de clique a cada elemento <li>
+listaItens.forEach(item => {
+    item.addEventListener('click', () => {
+        // Obtém o radio button dentro do <li> clicado
+        const radioBtn = item.querySelector('.item-acompanhamento-radio');
+        
+        // Marca o radio button
+        radioBtn.checked = true;
+        checado = true;
+
+    });
+});
+
+

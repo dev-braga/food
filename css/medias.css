@@ -19,6 +19,9 @@
     .title-navbar{
         display: block;
     }
+    .txt-saudacao p{
+        width: 60%;
+    }
 }
 
 @media (max-width: 765px){
@@ -88,5 +91,8 @@
     } 
     .btnAdd{
         border-radius: 70%;
+    }
+    .txt-saudacao p{
+        width: 100%;
     }
 }
