@@ -260,6 +260,11 @@ const addAoCarrinho = (key) => {
         alert('Selecione ao menos 1 acompanhamento.')
     }
 
+    const radioButtons = document.querySelectorAll('.mdl-radio input[type="radio"]');
+        radioButtons.forEach(radioButton => {
+            radioButton.checked = false;
+    });
+
 };
 
 
@@ -287,15 +292,19 @@ const reloadPrato = () => {
                 <div class="carro-item-detalhe">
                 <h4><b>${value.titulo}</b></h4>
                 <a class="btnExcluirItems" onclick="excluirItemsCarrinho(${key})"><b>Excluir <i class="bi bi-trash3"></i></b></a>
-                    ${listAcomp.map((acomp, index) => {
-                        // Verifica se o ID do acompanhamento é igual ao ID do radio selecionado
-                        if (index === key) {
+                ${listAcomp.map((acomp, index) => {
+                    // Verifica se o ID do acompanhamento é igual ao ID do radio selecionado
+                    if (index === key) {
+                        if(key){
                             qtdAcomp++
-                            return `<p id="${index}" class="textoAcomp"><b>Acompanhamento:</b><br> ${acomp.titulo + qtdAcomp} </p>`;
-                        } else {
-                            return ''; // Retorna uma string vazia se não corresponder ao ID do radio
                         }
-                    }).join('')}
+                        return `<p id="${index}" class="textoAcomp"><b>Acompanhamento:</b><br> ${acomp.titulo} ${qtdAcomp} </p>`;
+                    } else {
+                        return ''; // Retorna uma string vazia se não corresponder ao ID do radio
+                    }
+                }).join('')}
+                
+                
                 <p>Unidades</p>
                 <div class="carro-item-quantia">
                     <button class="btMinos" 

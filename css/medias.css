@@ -102,6 +102,7 @@
 @media (max-width: 440px){
     .btMinos,
     .btPlus{
-       
+       width: unset;
+       padding: 4px 12px;
     } 
 }
