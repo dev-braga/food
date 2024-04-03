@@ -20,6 +20,9 @@ let pedido = 1 // Incrementar o número de pedidos.
 // Modais
 const modalEtapa1 = document.querySelector('.modal-etapa1') 
 const modalEtapa2 = document.querySelector('.modal-etapa2')
+const spanAcomp = document.querySelector('.name-radio')
+const textoAcomp = document.getElementById('txtAcomp');
+let qtdAcomp = 0
 // Array
 const listaDePratos = []
 
@@ -113,6 +116,7 @@ const setupListeners = () => {
     
 }
 
+
 const initApp = () => {
 
     carregarDoLocalStorage();
@@ -141,9 +145,9 @@ const initApp = () => {
                                     </div>
                                 </div>
                                 <button type="button" 
-                            data-key="${key}" class="btnAdd" data-bs-toggle="modal" data-bs-target="#ModalAcompanhamento${key}">
-                            <i class="bi bi-plus ico-btn"></i>
-                            </button>
+                                    data-key="${key}" class="btnAdd" data-bs-toggle="modal" data-bs-target="#ModalAcompanhamento${key}" onclick="verificaId(${key})">
+                                <i class="bi bi-plus ico-btn"></i>
+                                </button>
                                 <div class="amount-wrapper js-amount-wrapper is-hidden"></div>
                             </div>
                             <div class="item-right-side">
@@ -188,8 +192,8 @@ const initApp = () => {
                                                 <span class="name-radio">${acomp.titulo} - Sem custo adiconal</span>
                                             </span>
                                         </div>
-                                        <label class="mdl-radio" for="item-acompanhamento">
-                                            <input id="item-acompanhamento" type="radio" class="item-acompanhamento-radio" name="item-acompanhamento"  value="${acomp.titulo}">
+                                        <label class="mdl-radio" for="item-acompanhamento-${index}">
+                                            <input id="item-acompanhamento-${index}" type="radio" class="item-acompanhamento-radio" name="item-acompanhamento"  value="${acomp.titulo}">
                                             <span class="radio-btn"></span>
                                         </label>
                                     </li>
@@ -202,7 +206,7 @@ const initApp = () => {
                         class="btn btn-success btn-modal"
                         onclick="addAoCarrinho(${key}, '${value.titulo}')"
                         > Adicionar • R$ ${value.preco.toLocaleString()}</button>
-                </div>
+                    </div>
               </div>
             </div>
           </div>
@@ -216,9 +220,13 @@ const initApp = () => {
 
 };
 
-
 const addAoCarrinho = (key) => {
-    if(checado){
+
+     // Fecha o modal
+     const modalId = `ModalAcompanhamento${key}`;
+     const modal = document.getElementById(modalId);
+
+    if(checado || key == 2 || key == 5){
         //salvarNoFirebase()
         // Verificar se já existe o produto no carrinho
         const existingIndex = listaDePratos.findIndex(item => item && item.id === pratos[key].id);
@@ -239,9 +247,7 @@ const addAoCarrinho = (key) => {
         salvarNoLocalStorage();
         reloadPrato();
         
-        // Fecha o modal
-        const modalId = `ModalAcompanhamento${key}`;
-        const modal = document.getElementById(modalId);
+       
         if (modal) {
             const modalInstance = bootstrap.Modal.getInstance(modal);
             if (modalInstance) {
@@ -249,15 +255,11 @@ const addAoCarrinho = (key) => {
             }
         }
 
-         // Exibe o acompanhamento selecionado no h3
-         const acompanhamentoSelecionado = document.querySelector(`#${modalId} .item-properties-list li input:checked`).value;
-         document.querySelector(`#${modalId} h3`).innerText = `Acompanhamento: ${acompanhamentoSelecionado}`;
-
         checado = false;
     }else {
         alert('Selecione ao menos 1 acompanhamento.')
     }
-    
+
 };
 
 
@@ -285,8 +287,15 @@ const reloadPrato = () => {
                 <div class="carro-item-detalhe">
                 <h4><b>${value.titulo}</b></h4>
                 <a class="btnExcluirItems" onclick="excluirItemsCarrinho(${key})"><b>Excluir <i class="bi bi-trash3"></i></b></a>
-                <p> Acompanhamento</p>
-                <h3 id="acompanhamento-${key}"></h3>  
+                    ${listAcomp.map((acomp, index) => {
+                        // Verifica se o ID do acompanhamento é igual ao ID do radio selecionado
+                        if (index === key) {
+                            qtdAcomp++
+                            return `<p id="${index}" class="textoAcomp"><b>Acompanhamento:</b><br> ${acomp.titulo + qtdAcomp} </p>`;
+                        } else {
+                            return ''; // Retorna uma string vazia se não corresponder ao ID do radio
+                        }
+                    }).join('')}
                 <p>Unidades</p>
                 <div class="carro-item-quantia">
                     <button class="btMinos" 
@@ -299,11 +308,8 @@ const reloadPrato = () => {
                 </div>
             </div>
             `;
-            carroBody.appendChild(novoPrato)
-
-            if (value.acompanhamento) {
-                document.getElementById(`acompanhamento-${key}`).innerText = `Acompanhamento: ${value.acompanhamento}`;
-            }
+            carroBody.appendChild(novoPrato)            
+            
         }
         qtdNotificacaoCarrinho.innerText = count
         carroTotal.innerText = 'R$ ' + totalPrice.toLocaleString()
@@ -375,10 +381,9 @@ carroPedir.addEventListener('click', (key, qtd) => {
 
     btnPedir.addEventListener('click', () => {
         pedido++;
-
+        const nomeSalvo = localStorage.getItem("nomeUsuario");
         const msgTitle = '*Segue abaixo as informações do pedido:*\n\n';
-        const nmrPedido = `*N° Pedido:* ${pedido}\n`
-        const nomeCliente = '*Nome:* Bruno Braga\n\n'
+        const nomeCliente = `*Nome:* ${nomeSalvo}\n\n`
         const pd = '*_-- PEDIDOS --_*\n' 
 
         const mensagem = listaDePratos.map((value) => {
@@ -396,6 +401,12 @@ carroPedir.addEventListener('click', (key, qtd) => {
     
 })
 
+function initContato(){
+    const redirecionamento = 'https://wa.me/5571982877132?text=Gostaria de mais informações.';
+
+    // Finalmente abrir o link do whatsapp
+    window.open(redirecionamento, '_blank')
+}
 
 initApp()
 setupListeners()
@@ -412,8 +423,8 @@ function selectRadio(liElement) {
 
 // Obtém todos os elementos <li>
 const listaItens = document.querySelectorAll('.item-properties-list li');
-const modal = document.querySelector('.modal');
 let checado = false
+
 // Adiciona um evento de clique a cada elemento <li>
 listaItens.forEach(item => {
     item.addEventListener('click', () => {
@@ -423,8 +434,19 @@ listaItens.forEach(item => {
         // Marca o radio button
         radioBtn.checked = true;
         checado = true;
-
-    });
+    }); 
 });
 
+const verificaId = (key) => {
+    const modal = document.getElementById(`ModalAcompanhamento${key}`);
+    const option = modal.querySelector('#item-properties');
+    
+    if (key == 2 || key == 5) {
+        option.classList.add('lgg');
+    }else{
+        
+    }
+}
 
+
+console.log(textoAcomp)

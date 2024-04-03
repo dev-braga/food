@@ -97,4 +97,12 @@
     .txt-saudacao p{
         width: 100%;
     }
+    
+}
+@media (max-width: 440px){
+    .btMinos,
+    .btPlus{
+        width: 27px;
+        height: 20px;
+    } 
 }
