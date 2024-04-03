@@ -292,19 +292,39 @@ const reloadPrato = () => {
                 <div class="carro-item-detalhe">
                 <h4><b>${value.titulo}</b></h4>
                 <a class="btnExcluirItems" onclick="excluirItemsCarrinho(${key})"><b>Excluir <i class="bi bi-trash3"></i></b></a>
+                
+               
                 ${listAcomp.map((acomp, index) => {
                     // Verifica se o ID do acompanhamento é igual ao ID do radio selecionado
+                    let qtdArroz = 0;
+                    let qtdEspaguete = 0;
+    
                     if (index === key) {
-                        if(key){
-                            qtdAcomp++
+                        if (index === 0) {
+                            qtdArroz++;
+                        } else {
+                            qtdEspaguete++;
                         }
-                        return `<p id="${index}" class="textoAcomp"><b>Acompanhamento:</b><br> ${acomp.titulo} ${qtdAcomp} </p>`;
+
+                        if (qtdArroz > 0 && qtdEspaguete > 0) {
+                            return `<p id="${index}" class="textoAcomp"><b>Acompanhamento:</b><br> ${acomp.titulo} ${qtdEspaguete} <br> ${acomp.titulo} ${qtdArroz} </p>`;
+                        } else if (qtdArroz > 0) {
+                            return `<p id="${index}" class="textoAcomp"><b>Acompanhamento:</b><br> ${acomp.titulo} ${qtdArroz} <br>  </p>`;
+                        } else if (qtdEspaguete > 0) {
+                            return `<p id="${index}" class="textoAcomp"><b>Acompanhamento:</b><br> ${acomp.titulo} ${qtdEspaguete} <br>  </p>`;
+                        } else {
+                            return ''; // Retorna uma string vazia se não houver quantidade de nenhum acompanhamento
+                        }
+
                     } else {
                         return ''; // Retorna uma string vazia se não corresponder ao ID do radio
                     }
                 }).join('')}
+
+                    
                 
                 
+
                 <p>Unidades</p>
                 <div class="carro-item-quantia">
                     <button class="btMinos" 
