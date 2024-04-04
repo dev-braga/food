@@ -478,4 +478,17 @@ const verificaId = (key) => {
 }
 
 
-console.log(textoAcomp)
+// Add event listener to window scroll
+window.addEventListener('scroll', function() {
+    // Get the distance scrolled from the top of the page
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    // If the distance scrolled is more than 50px, add the 'sticky' class to the cart
+    if (scrollTop > 200) {
+        document.querySelector('.cart').classList.add('sticky');
+    } else {
+        // Otherwise, remove the 'sticky' class
+        document.querySelector('.cart').classList.remove('sticky');
+    }
+});
+
+

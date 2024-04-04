@@ -2,6 +2,14 @@
     .navbar-brand{
         position: unset;
         top: unset;
+      
+    }
+    .navbar-nav .nav-link{
+        background-color: #fdf8ed;
+        border: 1px solid #f3ebda;
+        border-radius: 0;
+        box-shadow: unset;
+        color: #181818;
     }
     .navbar-brand img {
         width: 3.5rem;
@@ -22,6 +30,7 @@
     .txt-saudacao p{
         width: 60%;
     }
+
 }
 
 @media (max-width: 765px){
@@ -68,7 +77,6 @@
 @media (max-height: 760px){
     .btMinos,
     .btPlus{
-        width: 20px;
         border: none;
         border-radius: 50%;
         text-align: center;
@@ -83,16 +91,12 @@
     }
     .btMinos,
     .btPlus{
-        background-color: rgb(53, 36, 21);
-        color: #fff;
-        width: 25px;
-        border: none;
-        border-radius: 50%;
-        text-align: center;
-        align-items: center;
-    } 
+       width: unset;
+       padding: 4px 12px;
+    }  
     .btnAdd{
        width: unset;
+       padding: 3px 10px;
     }
     .txt-saudacao p{
         width: 100%;

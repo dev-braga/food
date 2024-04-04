@@ -2,7 +2,7 @@ body{
     font-family: "DM Sans", sans-serif;
     padding: 0;
     margin: 0;
-    background-color: #fdf8ed
+    background-color: #fdf8ed;
 }
 .navbar-brand{
     position: absolute;
@@ -24,6 +24,7 @@ body{
     background-color: #eeeeee00;
 }
 .navbar .nav-link{
+    cursor: pointer;
     display: flex;
     font-size: 18px;
     font-weight: 500;
@@ -765,15 +766,19 @@ text-align: start;    -webkit-line-clamp: 4;
 
 .btMinos,
 .btPlus{
-    width: 25px;
+    width: unset;
+    padding: 3px 10px;
+    background-color: #3d3f3d;
     border: none;
     border-radius: 50%;
-    color: #333333;
+    color: #ffffff;
+    text-align: center;
+    align-items: center;
     cursor: pointer;
 }
 .btMinos:hover,
 .btPlus:hover{
-    background-color: #ddd;
+    background-color: #2e2626;
 }
 
 .list-group li{
@@ -798,8 +803,40 @@ text-align: start;    -webkit-line-clamp: 4;
 ol, ul {
     padding-left: 0rem;
 }
-
-
+a{
+    color: #ffff;
+}
+.sticky{
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border-radius: 50px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    transition: ease-in-out 0.1s;
+}
+.sticky.nav-link{
+    background-color: #198754;
+    cursor: pointer;
+    --bs-navbar-nav-link-padding-x: 2rem;
+    box-shadow: 2px 2px 4px #7464638e;
+    border: 0;
+    color: #fffefe;
+}
+.sticky.nav-link:hover{
+    background-color: #000000;
+}
+.sticky .counter-cart{
+    right: 0.1rem;
+    top: -0.8rem;
+    background-color: #c43333;
+}
+.sticky .icon-cart{
+    position: relative;
+    right: -.5rem;
+    font-size: 25px;
+}
 .mdl-radio {
     position: relative;
     cursor: pointer;
