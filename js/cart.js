@@ -278,11 +278,6 @@ const addAoCarrinho = (key) => {
             radioButton.checked = false;
     });
 
-
-     // Capturar o texto do radio button selecionado
-    
-     console.log(listaDeAcompanhamentos)
-
 };
 
 
@@ -339,6 +334,7 @@ const excluirItemsCarrinho = (key) => {
     const btnAdd = document.querySelector(`.btnAdd[data-key="${key}"]`);
     carroBody.innerHTML = ""
     listaDePratos.splice(key, 1);
+    listaDeAcompanhamentos.splice(key, 1);
     
     reloadPrato()
 
@@ -377,57 +373,74 @@ carroLimpar.addEventListener('click', (key, qtd) => {
     qtdArroz = 0; // Acompanhamentos 
     qtdEspaguete = 0;  // Acompanhamentos 
     IdAcompanhamento = ''
+    listaDeAcompanhamentos = [];
 })
 
 // Botão de fazer o pedido ============
-carroPedir.addEventListener('click', (key, qtd) => {
+carroPedir.addEventListener('click', () => {
     
 
+    if (listaDePratos.length < 1) {
+        modalEtapa1.innerHTML = 'Sem itens';
+    } else {
+        btnPedir.disabled = false;
+        modalEtapa1.innerHTML = ''; // Limpando antes de exibir o resultado.
 
-    if(listaDePratos.length < 1){
-        modalEtapa1.innerHTML = 'Sem itens'
-    }
-    else{
-        btnPedir.disabled = false
-        modalEtapa1.innerHTML = '' // Limpando antes de exibir o resultado.
-        listaDePratos.forEach((value, key) => {
+        // Variável para armazenar a mensagem do pedido
+        let mensagemPedido = '';
+
+        listaDePratos.forEach((prato, index) => {
+            let textoAcompanhamento = '';
+
+            // Verifica se o prato é o item 2 ou 5
+            if (prato.id === 2 || prato.id === 5) {
+                textoAcompanhamento = 'Não tem acompanhamento';
+            } else {
+                let acompanhamentosDoPrato = listaDeAcompanhamentos.filter(item => item.id === prato.id);
+
+                acompanhamentosDoPrato.forEach(item => {
+                    textoAcompanhamento += `${item.acompanhamento}, `;
+                });
+
+                // Removendo a vírgula extra no final do texto
+                textoAcompanhamento = textoAcompanhamento.slice(0, -2);
+            }
+
             modalEtapa1.innerHTML += `
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><b>Comida:</b> ${value.titulo}</li>
-                <li class="list-group-item"><b>Valor:</b> R$ ${value.preco.toLocaleString()}</li>
-                <li class="list-group-item"><b>Unidade:</b> ${value.qtd}</li>
-                <li class="list-group-item">----------------------------------</li>
-            </ul>
-        `
-        })
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b>Comida:</b> ${prato.titulo}</li>
+                    <li class="list-group-item"><b>Valor:</b> R$ ${prato.preco.toLocaleString()}</li>
+                    <li class="list-group-item"><b>Unidade:</b> ${prato.qtd}</li>
+                    <li class="list-group-item"><b>Acompanhamento:</b> ${textoAcompanhamento}</li>
+                    <li class="list-group-item">----------------------------------</li>
+                </ul>`;
+                mensagemPedido += `Comida: ${prato.titulo}\nValor: R$ ${prato.preco.toLocaleString()}\nUnidade: ${prato.qtd}\nAcompanhamento: ${textoAcompanhamento}\n----------------------------------\n`;
         
+            });
+
+            btnPedir.addEventListener('click', () => {
+                pedido++;
+        
+                const nomeSalvo = localStorage.getItem("nomeUsuario");
+                const msgTitle = '*Segue abaixo as informações do pedido:*\n\n';
+                const nomeCliente = `*Nome:* ${nomeSalvo}\n\n`
+                const pd = '*_-- PEDIDOS --_*\n' 
+        
+        
+                const redirecionamento = `https://wa.me/5571982877132?text=${encodeURIComponent(msgTitle + nomeCliente + pd + mensagemPedido)}`;
+                
+                
+                // Finalmente abrir o link do whatsapp
+                window.open(redirecionamento, '_blank')
+        
+        
+                // RESETANTO AS VARIAVEIS
+                qtdArroz = 0; // Acompanhamentos 
+                qtdEspaguete = 0;  // Acompanhamentos 
+            });
     }
-
-    btnPedir.addEventListener('click', () => {
-        pedido++;
-
-        const nomeSalvo = localStorage.getItem("nomeUsuario");
-        const msgTitle = '*Segue abaixo as informações do pedido:*\n\n';
-        const nomeCliente = `*Nome:* ${nomeSalvo}\n\n`
-        const pd = '*_-- PEDIDOS --_*\n' 
-
-        const mensagem = listaDePratos.map((value) => {
-            
-            return `> *Prato:* ${value.titulo}, *Valor:* R$ ${value.preco.toLocaleString()}, *Quantidade:* ${value.qtd}
-            `
-        }).join('\n');
-        
-        const redirecionamento = `https://wa.me/5571982877132?text=
-                ${encodeURIComponent(msgTitle + nomeCliente + pd + mensagem)}`;
-        
-        // Finalmente abrir o link do whatsapp
-        window.open(redirecionamento, '_blank')
-
-
-        // RESETANTO AS VARIAVEIS
-        qtdArroz = 0; // Acompanhamentos 
-        qtdEspaguete = 0;  // Acompanhamentos 
-    });
+    
+    
     
 })
 
@@ -528,7 +541,7 @@ const exibirAcompanhamentosPorChave = (key, prato) => {
     // Verifica se o ID do prato é 2 ou 5 para definir o texto como vazio
     let textoAcompanhamento;
     if (prato.id === 2 || prato.id === 5) {
-        textoAcompanhamento = '';
+        textoAcompanhamento = 'Não há.';
     } else {
         // Itera sobre os acompanhamentos encontrados
         acompanhamentosDoPrato.forEach(item => {
@@ -540,8 +553,7 @@ const exibirAcompanhamentosPorChave = (key, prato) => {
             }
         });
 
-        // Cria o texto a ser exibido com base na contagem de acompanhamentos
-        textoAcompanhamento = `${qtdEspaguete == 0 && qtdArroz == 0 ? '': qtdEspaguete + ' prato(s) com espaguete' + ' | ' + qtdArroz + ' prato(s) com arroz'}`;
+       textoAcompanhamento = `${qtdArroz > 0 ? qtdArroz + ' prato(s) com arroz' : ''} ${qtdArroz > 0 && qtdEspaguete > 0 ? '|' : ''} ${qtdEspaguete > 0 ? qtdEspaguete + ' prato(s) com espaguete' : ''}`;
     }
 
     // Cria um parágrafo com o texto de acompanhamento para este prato
@@ -552,7 +564,6 @@ const exibirAcompanhamentosPorChave = (key, prato) => {
 
     // Adiciona o elemento de texto à div de acompanhamento específica para este prato
     acompContainer.appendChild(textoAcompElement);
-
     // Se necessário, adicione a div ao elemento pai apropriado (onde você quer exibir o texto de acompanhamento)
     // Por exemplo: listPratosHTML.appendChild(acompContainer);
 };
