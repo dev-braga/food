@@ -461,7 +461,7 @@ carroPedir.addEventListener('click', () => {
                 const pd = '*_-- PEDIDOS --_*\n' 
         
         
-                const redirecionamento = `https://wa.me/5571982877132?text=${encodeURIComponent(msgTitle + nomeCliente + pd + mensagemPedido)}`;
+                const redirecionamento = `https://wa.me/5571996071960?text=${encodeURIComponent(msgTitle + nomeCliente + pd + mensagemPedido)}`;
                 
                 
                 // Finalmente abrir o link do whatsapp
@@ -480,7 +480,7 @@ carroPedir.addEventListener('click', () => {
 })
 
 function initContato(){
-    const redirecionamento = 'https://wa.me/5571982877132?text=Gostaria de mais informações.';
+    const redirecionamento = 'https://wa.me/5571996071960?text=Gostaria de mais informações.';
 
     // Finalmente abrir o link do whatsapp
     window.open(redirecionamento, '_blank')
