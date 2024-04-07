@@ -23,9 +23,12 @@ const modalEtapa2 = document.querySelector('.modal-etapa2')
 const spanAcomp = document.querySelector('.name-radio')
 const textoAcomp = document.getElementById('txtAcomp');
 let qtdAcomp = 0
+let qtdArroz = 0; // Acompanhamentos 
+let qtdEspaguete = 0;  // Acompanhamentos 
+let IdAcompanhamento = ''
 // Array
 const listaDePratos = []
-
+let listaDeAcompanhamentos = []
 // Event Listeners
 const showCarro = () => {
     carro.classList.add('show')
@@ -231,7 +234,16 @@ const addAoCarrinho = (key) => {
         // Verificar se já existe o produto no carrinho
         const existingIndex = listaDePratos.findIndex(item => item && item.id === pratos[key].id);
 
+            // Criar o objeto JSON com o texto do acompanhamento e o ID associado
+        const jsonAcompanhamento = {
+            id: key, // Usando o ID do prato como ID do acompanhamento para fins de exemplo
+            acompanhamento: IdAcompanhamento
+        };
 
+        // Adicionar o objeto JSON ao array de acompanhamentos
+        listaDeAcompanhamentos.push(jsonAcompanhamento);
+        exibirAcompanhamentosPorChave(key, pratos[key]);
+       
         if (existingIndex !== -1) {
             // Item já está no carrinho, incrementar a quantidade
             listaDePratos[existingIndex].qtd += 1;
@@ -256,6 +268,7 @@ const addAoCarrinho = (key) => {
         }
 
         checado = false;
+        
     }else {
         alert('Selecione ao menos 1 acompanhamento.')
     }
@@ -264,6 +277,11 @@ const addAoCarrinho = (key) => {
         radioButtons.forEach(radioButton => {
             radioButton.checked = false;
     });
+
+
+     // Capturar o texto do radio button selecionado
+    
+     console.log(listaDeAcompanhamentos)
 
 };
 
@@ -277,76 +295,45 @@ const reloadPrato = () => {
     carroBody.innerHTML = "";
     let count = 0;
     let totalPrice = 0;
-    
-    listaDePratos.forEach( (value, key) => {
+
+    listaDePratos.forEach((value, key) => {
         totalPrice = totalPrice + value.preco;
         count = count + value.qtd;
 
-        if(value != null){
-            let novoPrato = document.createElement("div")
+        if (value != null) {
+            // Cria um novo elemento para cada prato
+            let novoPrato = document.createElement("div");
+            novoPrato.classList.add("carro-item");
+
+            // Adiciona o HTML correspondente ao prato
             novoPrato.innerHTML = `
-
-            <div class="carro-item">
                 <img src="${value.image}" alt="">
-                
                 <div class="carro-item-detalhe">
-                <h4><b>${value.titulo}</b></h4>
-                <a class="btnExcluirItems" onclick="excluirItemsCarrinho(${key})"><b>Excluir <i class="bi bi-trash3"></i></b></a>
-                
-               
-                ${listAcomp.map((acomp, index) => {
-                    // Verifica se o ID do acompanhamento é igual ao ID do radio selecionado
-                    let qtdArroz = 0;
-                    let qtdEspaguete = 0;
-    
-                    if (index === key) {
-                        if (index === 0) {
-                            qtdArroz++;
-                        } else {
-                            qtdEspaguete++;
-                        }
-
-                        if (qtdArroz > 0 && qtdEspaguete > 0) {
-                            return `<p id="${index}" class="textoAcomp"><b>Acompanhamento:</b><br> ${acomp.titulo} ${qtdEspaguete} <br> ${acomp.titulo} ${qtdArroz} </p>`;
-                        } else if (qtdArroz > 0) {
-                            return `<p id="${index}" class="textoAcomp"><b>Acompanhamento:</b><br> ${acomp.titulo} ${qtdArroz} <br>  </p>`;
-                        } else if (qtdEspaguete > 0) {
-                            return `<p id="${index}" class="textoAcomp"><b>Acompanhamento:</b><br> ${acomp.titulo} ${qtdEspaguete} <br>  </p>`;
-                        } else {
-                            return ''; // Retorna uma string vazia se não houver quantidade de nenhum acompanhamento
-                        }
-
-                    } else {
-                        return ''; // Retorna uma string vazia se não corresponder ao ID do radio
-                    }
-                }).join('')}
-
-                    
-                
-                
-
-                <p>Unidades</p>
-                <div class="carro-item-quantia">
-                    <button class="btMinos" 
-                    onclick="changeQuantidade(${key}, ${value.qtd - 1}, 'btMinos')" ${value.qtd < 2 ? 'disabled' : ''}>-</button>
-                    <span class="qtd">${value.qtd}</span>
-                    <button class="btPlus" onclick="changeQuantidade(${key}, ${value.qtd + 1})">+</button>
-                    <span class="carro-item-preco">R$ ${value.preco.toLocaleString()}</span>
+                    <h4><b>${value.titulo}</b></h4>
+                    <a class="btnExcluirItems" onclick="excluirItemsCarrinho(${key})"><b>Excluir <i class="bi bi-trash3"></i></b></a>
+                    <p>Acompanhamento: </p>
+                    <div class="acomp-container-${key}"></div> <!-- Container para o texto de acompanhamento -->
+                    <p>Unidades</p>
+                    <div class="carro-item-quantia">
+                        <button class="btMinos" onclick="changeQuantidade(${key}, ${value.qtd - 1}, 'btMinos')" ${value.qtd < 2 ? 'disabled' : ''}>-</button>
+                        <span class="qtd">${value.qtd}</span>
+                        <button class="btPlus" onclick="changeQuantidade(${key}, ${value.qtd + 1})">+</button>
+                        <span class="carro-item-preco">R$ ${value.preco.toLocaleString()}</span>
+                    </div>
                 </div>
-
-                </div>
-            </div>
             `;
-            carroBody.appendChild(novoPrato)            
-            
+
+            // Adiciona o novo elemento ao corpo do carro
+            carroBody.appendChild(novoPrato);
+
+            // Exibe os textos de acompanhamento para o prato atual
+            exibirAcompanhamentosPorChave(key, value);
         }
-        qtdNotificacaoCarrinho.innerText = count
-        carroTotal.innerText = 'R$ ' + totalPrice.toLocaleString()
-        
-    })
+        qtdNotificacaoCarrinho.innerText = count;
+        carroTotal.innerText = 'R$ ' + totalPrice.toLocaleString();
+    });
+};
 
-
-}
 
 const excluirItemsCarrinho = (key) => {
     const btnAdd = document.querySelector(`.btnAdd[data-key="${key}"]`);
@@ -360,7 +347,9 @@ const excluirItemsCarrinho = (key) => {
         carroTotal.innerText = "R$ " + 0
         carroBody.innerHTML = `<div class="carro-vazio" style="display: block;">Seu carro está vazio.</div>`   
     }
-    
+
+    qtdArroz = 0; // Acompanhamentos 
+    qtdEspaguete = 0;  // Acompanhamentos
     checado = false
 }
 
@@ -368,7 +357,8 @@ const changeQuantidade = (key, qtd) => {
 
     listaDePratos[key].qtd = qtd
     listaDePratos[key].preco = qtd * pratos[key].preco
-     
+   
+
     reloadPrato()
 }
 
@@ -384,11 +374,16 @@ carroLimpar.addEventListener('click', (key, qtd) => {
     hideCarro()
     carregarDoLocalStorage()
     checado = false
+    qtdArroz = 0; // Acompanhamentos 
+    qtdEspaguete = 0;  // Acompanhamentos 
+    IdAcompanhamento = ''
 })
 
 // Botão de fazer o pedido ============
 carroPedir.addEventListener('click', (key, qtd) => {
     
+
+
     if(listaDePratos.length < 1){
         modalEtapa1.innerHTML = 'Sem itens'
     }
@@ -398,10 +393,10 @@ carroPedir.addEventListener('click', (key, qtd) => {
         listaDePratos.forEach((value, key) => {
             modalEtapa1.innerHTML += `
             <ul class="list-group list-group-flush">
-                <li> Prato</li>
                 <li class="list-group-item"><b>Comida:</b> ${value.titulo}</li>
                 <li class="list-group-item"><b>Valor:</b> R$ ${value.preco.toLocaleString()}</li>
-                <li class="list-group-item"><b>Quantidade:</b> ${value.qtd}</li>
+                <li class="list-group-item"><b>Unidade:</b> ${value.qtd}</li>
+                <li class="list-group-item">----------------------------------</li>
             </ul>
         `
         })
@@ -410,6 +405,7 @@ carroPedir.addEventListener('click', (key, qtd) => {
 
     btnPedir.addEventListener('click', () => {
         pedido++;
+
         const nomeSalvo = localStorage.getItem("nomeUsuario");
         const msgTitle = '*Segue abaixo as informações do pedido:*\n\n';
         const nomeCliente = `*Nome:* ${nomeSalvo}\n\n`
@@ -422,10 +418,15 @@ carroPedir.addEventListener('click', (key, qtd) => {
         }).join('\n');
         
         const redirecionamento = `https://wa.me/5571982877132?text=
-                ${encodeURIComponent(msgTitle + nmrPedido + nomeCliente + pd + mensagem)}`;
+                ${encodeURIComponent(msgTitle + nomeCliente + pd + mensagem)}`;
         
         // Finalmente abrir o link do whatsapp
         window.open(redirecionamento, '_blank')
+
+
+        // RESETANTO AS VARIAVEIS
+        qtdArroz = 0; // Acompanhamentos 
+        qtdEspaguete = 0;  // Acompanhamentos 
     });
     
 })
@@ -463,6 +464,14 @@ listaItens.forEach(item => {
         // Marca o radio button
         radioBtn.checked = true;
         checado = true;
+        if(radioBtn.value == 'Espaguete'){
+            IdAcompanhamento = radioBtn.value
+        }
+        else if(radioBtn.value == 'Arroz com brócolis'){
+            IdAcompanhamento = radioBtn.value
+        }else{
+            IdAcompanhamento = ''
+        }
     }); 
 });
 
@@ -475,6 +484,7 @@ const verificaId = (key) => {
     }else{
         
     }
+
 }
 
 
@@ -492,3 +502,63 @@ window.addEventListener('scroll', function() {
 });
 
 
+const exibirAcompanhamentosPorChave = (key, prato) => {
+    // Seleciona a div onde o texto de acompanhamento será exibido
+    let acompContainer = document.querySelector(`.acomp-container-${key}`);
+    
+    // Verifica se a div já existe, se não, cria uma nova
+    if (!acompContainer) {
+        // Cria a div para o texto de acompanhamento deste prato
+        acompContainer = document.createElement('div');
+        acompContainer.classList.add(`acomp-container-${key}`);
+        // Adiciona a div ao elemento pai apropriado (onde você quer exibir o texto de acompanhamento)
+        // Por exemplo: listPratosHTML.appendChild(acompContainer);
+    }
+
+    // Limpa o conteúdo anterior da div
+    acompContainer.innerHTML = '';
+
+    // Filtra os acompanhamentos associados ao ID do prato
+    const acompanhamentosDoPrato = listaDeAcompanhamentos.filter(item => item.id === prato.id);
+
+    // Inicializa variáveis para contar a quantidade de acompanhamentos
+    let qtdEspaguete = 0;
+    let qtdArroz = 0;
+
+    // Verifica se o ID do prato é 2 ou 5 para definir o texto como vazio
+    let textoAcompanhamento;
+    if (prato.id === 2 || prato.id === 5) {
+        textoAcompanhamento = '';
+    } else {
+        // Itera sobre os acompanhamentos encontrados
+        acompanhamentosDoPrato.forEach(item => {
+            // Verifica o tipo de acompanhamento e incrementa a contagem correspondente
+            if (item.acompanhamento === 'Espaguete') {
+                qtdEspaguete++;
+            } else if (item.acompanhamento === 'Arroz com brócolis') {
+                qtdArroz++;
+            }
+        });
+
+        // Cria o texto a ser exibido com base na contagem de acompanhamentos
+        textoAcompanhamento = `${qtdEspaguete == 0 && qtdArroz == 0 ? '': qtdEspaguete + ' prato(s) com espaguete' + ' | ' + qtdArroz + ' prato(s) com arroz'}`;
+    }
+
+    // Cria um parágrafo com o texto de acompanhamento para este prato
+    const textoAcompElement = document.createElement('p');
+    textoAcompElement.classList.add('textoAcomp');
+    textoAcompElement.id = `texto-acomp-${prato.id}`;
+    textoAcompElement.textContent = textoAcompanhamento;
+
+    // Adiciona o elemento de texto à div de acompanhamento específica para este prato
+    acompContainer.appendChild(textoAcompElement);
+
+    // Se necessário, adicione a div ao elemento pai apropriado (onde você quer exibir o texto de acompanhamento)
+    // Por exemplo: listPratosHTML.appendChild(acompContainer);
+};
+
+
+
+
+
+// zeroElement.innerHTML = `<p class="textoAcomp" id="${id}">${qtdArroz == 0 && qtdEspaguete == 0 ? '': qtdEspaguete + ' prato(s) com espaguete' + ' | ' + qtdArroz + ' prato(s) com arroz'}</p>`;

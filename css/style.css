@@ -12,6 +12,17 @@ body{
     border: 4px solid #fdf8ed;
     border-radius: 50%;
 }
+.list-group-item{
+    font-size: 14px;
+    text-align: start;
+}
+.list-group-flush>.list-group-item {
+    border-width: 0
+}
+.list-group ul{
+    background-color: #eca5a5;
+    border-radius: 10px;
+}
 .navbar{
     padding: 10px;
     margin: 0;
