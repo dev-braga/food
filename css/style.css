@@ -19,6 +19,9 @@ body{
 .list-group-flush>.list-group-item {
     border-width: 0
 }
+#open-car{
+    display: none;
+}
 .list-group ul{
     background-color: #eca5a5;
     border-radius: 10px;

@@ -3,7 +3,8 @@ const qtd = document.querySelector(".qtd")
 const qtdNotificacaoCarrinho = document.querySelector('.counter-cart')
 
 const carroBtn = document.querySelector('.cart')
-const carroCounter = document.querySelector('.counter-cart')
+const carroBtnMobile = document.getElementById('open-car')
+const carroCounter = document.querySelector('.counter-cart-mobile')
 const carroClose = document.querySelector('.carro-close')
 const carroOverlay = document.querySelector('.carro-overlay')
 const carroLimpar = document.querySelector('.carro-limpar')
@@ -32,10 +33,12 @@ let listaDeAcompanhamentos = []
 // Event Listeners
 const showCarro = () => {
     carro.classList.add('show')
+    carroBtnMobile.classList.add('show')
     carroOverlay.classList.add('show')
 }
 const hideCarro = () => {
     carro.classList.remove('show')
+    carroBtnMobile.classList.remove('show')
     carroOverlay.classList.remove('show')
 } 
 
@@ -114,6 +117,8 @@ const setupListeners = () => {
 
     // Evento do carrinho
     carroBtn.addEventListener('click', showCarro);
+    carroBtnMobile.addEventListener('click', showCarro);
+
     carroOverlay.addEventListener('click', showCarro)
     carroClose.addEventListener('click', hideCarro)
     
@@ -310,9 +315,9 @@ const reloadPrato = () => {
                     <div class="acomp-container-${key}"></div> <!-- Container para o texto de acompanhamento -->
                     <p>Unidades</p>
                     <div class="carro-item-quantia">
-                        <button class="btMinos" onclick="changeQuantidade(${key}, ${value.qtd - 1}, 'btMinos')" ${value.qtd < 2 ? 'disabled' : ''}>-</button>
+                        <button class="btMinos" onclick="changeQuantidade(${key}, ${value.qtd - 1}, 'btMinus')" ${value.qtd < 2 ? 'disabled' : ''}>-</button>
                         <span class="qtd">${value.qtd}</span>
-                        <button class="btPlus" onclick="changeQuantidade(${key}, ${value.qtd + 1})">+</button>
+                        <button class="btPlus" onclick="changeQuantidade(${key}, ${value.qtd + 1}, 'btPlus')">+</button>
                         <span class="carro-item-preco">R$ ${value.preco.toLocaleString()}</span>
                     </div>
                 </div>
@@ -325,21 +330,34 @@ const reloadPrato = () => {
             exibirAcompanhamentosPorChave(key, value);
         }
         qtdNotificacaoCarrinho.innerText = count;
+        carroCounter.innerText = count;
         carroTotal.innerText = 'R$ ' + totalPrice.toLocaleString();
     });
+
+    console.log(listaDeAcompanhamentos)
 };
 
 
 const excluirItemsCarrinho = (key) => {
-    const btnAdd = document.querySelector(`.btnAdd[data-key="${key}"]`);
+
     carroBody.innerHTML = ""
+
     listaDePratos.splice(key, 1);
-    listaDeAcompanhamentos.splice(key, 1);
-    
+    if (key >= 0 && key < listaDeAcompanhamentos.length) {
+        // Remove o objeto da lista na posição key
+        listaDeAcompanhamentos = listaDeAcompanhamentos.filter(item => item.id !== listaDeAcompanhamentos[key].id);
+
+        // Recarrega a visualização dos pratos no carrinho ou execute outras ações necessárias
+        reloadPrato();
+    } else {
+        console.error("A chave está fora dos limites da lista.");
+    }
+
     reloadPrato()
 
     if(listaDePratos.length == 0){
         qtdNotificacaoCarrinho.innerText = 0
+        carroCounter.innerText = 0;
         carroTotal.innerText = "R$ " + 0
         carroBody.innerHTML = `<div class="carro-vazio" style="display: block;">Seu carro está vazio.</div>`   
     }
@@ -349,20 +367,36 @@ const excluirItemsCarrinho = (key) => {
     checado = false
 }
 
-const changeQuantidade = (key, qtd) => {
+const changeQuantidade = (key, qtd, btType) => {
 
     listaDePratos[key].qtd = qtd
     listaDePratos[key].preco = qtd * pratos[key].preco
-   
 
+    if(btType === 'btMinus'){
+        qtdArroz--
+        qtdEspaguete--
+        listaDeAcompanhamentos[qtd] = qtdArroz
+    } else {
+        qtdArroz++
+        listaDeAcompanhamentos[qtd] = qtdArroz
+    }
+    // Atualiza o texto de acompanhamento
+    exibirAcompanhamentosPorChave(key, pratos[key]);
     reloadPrato()
 }
 
+
 carroLimpar.addEventListener('click', (key, qtd) => {
     
+    limparCampos()
+})
+
+// Limpar a tela
+const limparCampos = () => {
     carroBody.innerHTML = ""
     listaDePratos.length = 0
     qtdNotificacaoCarrinho.innerText = 0 
+    carroCounter.innerText = 0;
     carroTotal.innerText = "R$ " + 0
     carroBody.innerHTML = `<div class="carro-vazio" style="display: block;">Seu carro está vazio.</div>`
     document.querySelector('.btn-pedir').disabled = true // Desabilitar botão caso o array esteja vazio.
@@ -374,7 +408,7 @@ carroLimpar.addEventListener('click', (key, qtd) => {
     qtdEspaguete = 0;  // Acompanhamentos 
     IdAcompanhamento = ''
     listaDeAcompanhamentos = [];
-})
+}
 
 // Botão de fazer o pedido ============
 carroPedir.addEventListener('click', () => {
@@ -437,6 +471,7 @@ carroPedir.addEventListener('click', () => {
                 // RESETANTO AS VARIAVEIS
                 qtdArroz = 0; // Acompanhamentos 
                 qtdEspaguete = 0;  // Acompanhamentos 
+                limparCampos()
             });
     }
     
@@ -533,11 +568,8 @@ const exibirAcompanhamentosPorChave = (key, prato) => {
 
     // Filtra os acompanhamentos associados ao ID do prato
     const acompanhamentosDoPrato = listaDeAcompanhamentos.filter(item => item.id === prato.id);
-
-    // Inicializa variáveis para contar a quantidade de acompanhamentos
-    let qtdEspaguete = 0;
-    let qtdArroz = 0;
-
+    qtdArroz = 0;
+    qtdEspaguete = 0
     // Verifica se o ID do prato é 2 ou 5 para definir o texto como vazio
     let textoAcompanhamento;
     if (prato.id === 2 || prato.id === 5) {
@@ -550,6 +582,8 @@ const exibirAcompanhamentosPorChave = (key, prato) => {
                 qtdEspaguete++;
             } else if (item.acompanhamento === 'Arroz com brócolis') {
                 qtdArroz++;
+            }else{
+                return
             }
         });
 
@@ -567,8 +601,6 @@ const exibirAcompanhamentosPorChave = (key, prato) => {
     // Se necessário, adicione a div ao elemento pai apropriado (onde você quer exibir o texto de acompanhamento)
     // Por exemplo: listPratosHTML.appendChild(acompContainer);
 };
-
-
 
 
 

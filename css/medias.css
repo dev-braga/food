@@ -30,7 +30,33 @@
     .txt-saudacao p{
         width: 60%;
     }
-
+    #open-car{
+        z-index: 100;
+        display: block;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        border: none;
+        padding: 9px 24px;
+        border-radius: 50%;
+        background-color: #198754;
+        align-items: center;
+        color: #fff;
+        box-shadow: 2px 2px 4px #0b3b2552;
+    }
+    .counter-cart-mobile{
+        position: relative;
+        width: 18px;
+        height: 18px;
+        top: 0.5rem;
+        right: 0.5rem;
+        background-color: rgb(12, 2, 2);
+        color: #fff;
+        font-size: 12px;
+        border-radius: 50%;
+        text-align: center;
+        padding: 0;
+    }
 }
 
 @media (max-width: 765px){
@@ -81,7 +107,8 @@
         border-radius: 50%;
         text-align: center;
         align-items: center;
-    } 
+    }
+    
 }
 
 /* --- Mobile ---*/
